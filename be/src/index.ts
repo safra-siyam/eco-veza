@@ -17,11 +17,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // To allow cross-origin requests from the frontend
-// app.use(cors({
-//     origin: 'http://localhost:5173',
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     credentials: true,
-// }));
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+}));
 
 app.use((req, res, next) => {
     console.log(`Request URL: ${req.url}`);
