@@ -1,9 +1,9 @@
 {
-  "name": "fruit-shop-fe",
+  "name": "eco-veza",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://parathantl.github.io/fruit-shop-fe",
+  "homepage": "https://github.com/safra-siyam/eco-veza",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

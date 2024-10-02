@@ -1,65 +1,60 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
+import LogoutButton from './LogoutButton';
+import logo from '../src/assets/logo.png'; 
 
 const Header = () => {
-  // State to manage mobile menu visibility
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isAuthenticated } = useAuth();
 
-  // Function to toggle the mobile menu
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
 
   return (
-    <header className="bg-white shadow-md">
+    <header className="bg-[#F5F5DC] shadow-md">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Left Side: Logo */}
         <div className="flex items-center">
-          <img src="../src/assets/logo.jpeg" alt="Logo" className="h-10" />
+          <img src={logo} alt="Logo" className="h-10" />
         </div>
 
         {/* Right Side: Navigation (Hidden on mobile) */}
         <nav className="hidden md:flex space-x-8">
-          <Link to="/" className="text-gray-700 hover:text-blue-500 transition">
+          <Link to="/" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
             Home
           </Link>
-          <Link to="/about" className="text-gray-700 hover:text-blue-500 transition">
+          <Link to="/about" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
             About Us
           </Link>
-          <Link to="/products" className="text-gray-700 hover:text-blue-500 transition">
+          <Link to="/products" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
             Products
           </Link>
-          <Link to="/contact" className="text-gray-700 hover:text-blue-500 transition">
+          <Link to="/contact" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
             Contact Us
           </Link>
-          <Link to="/cart" className="text-gray-700 hover:text-blue-500 transition">
+          <Link to="/cart" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
             Cart
           </Link>
-{    !isAuthenticated &&      <>
-          <Link to="/signin" className="text-gray-700 hover:text-blue-500 transition">
-            Sign In
-          </Link>
-          <Link to="/signup" className="text-gray-700 hover:text-blue-500 transition">
-            Sign Up
-          </Link>
-          </>
-          }
-          {
-            isAuthenticated && (
-              <Link to="/logout" className="text-gray-700 hover:text-blue-500 transition">
-                Logout
+          {!isAuthenticated && (
+            <>
+              <Link to="/signin" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
+                Sign In
               </Link>
-            )
-          }
+              <Link to="/signup" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
+                Sign Up
+              </Link>
+            </>
+          )}
+          {isAuthenticated && <LogoutButton />}
         </nav>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <button
             onClick={toggleMobileMenu}
-            className="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="text-[#228B22] focus:outline-none focus:ring-2 focus:ring-[#D2B48C]"
             aria-label="Toggle Menu"
           >
             <svg
@@ -92,27 +87,51 @@ const Header = () => {
       {/* Mobile Navigation Drawer */}
       {isMobileMenuOpen && (
         <nav className="md:hidden">
-          <ul className="flex flex-col space-y-2 p-4 bg-white shadow-md">
+          <ul className="flex flex-col space-y-2 p-4 bg-[#F5F5DC] shadow-md">
             <li>
-              <Link to="/" className="text-gray-700 hover:text-blue-500 transition">
+              <Link to="/" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/about" className="text-gray-700 hover:text-blue-500 transition">
+              <Link to="/about" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
                 About Us
               </Link>
             </li>
             <li>
-              <Link to="/products" className="text-gray-700 hover:text-blue-500 transition">
+              <Link to="/products" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
                 Products
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="text-gray-700 hover:text-blue-500 transition">
+              <Link to="/contact" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
                 Contact Us
               </Link>
             </li>
+            <li>
+              <Link to="/cart" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
+                Cart
+              </Link>
+            </li>
+            {!isAuthenticated && (
+              <>
+                <li>
+                  <Link to="/signin" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
+                    Sign In
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
+                    Sign Up
+                  </Link>
+                </li>
+              </>
+            )}
+            {isAuthenticated && (
+              <li>
+                <LogoutButton />
+              </li>
+            )}
           </ul>
         </nav>
       )}

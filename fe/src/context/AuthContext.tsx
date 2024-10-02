@@ -1,3 +1,5 @@
+// AuthContext.tsx
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -6,18 +8,21 @@ import { toast } from "react-toastify";
 interface AuthContextProps {
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
-  signup: (  
+  signup: (
     username: string,
     email: string,
     password: string,
     address: string,
-    phone: string) => Promise<void>;
+    phone: string
+  ) => Promise<void>;
+  logout: () => Promise<void>; // Added logout to the interface
 }
 
 const AuthContext = createContext<AuthContextProps>({
   isAuthenticated: false,
   login: async () => {},
   signup: async () => {},
+  logout: async () => {}, // Provide a default empty function
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -35,11 +40,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
         if (response.data.authenticated) {
           setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
         }
       } catch (error) {
-        console.log(error);
-        // setIsAuthenticated(false);
         console.error("Authentication check failed:", error);
+        setIsAuthenticated(false);
       }
     };
 
@@ -48,54 +54,69 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (email: string, password: string) => {
     try {
-    const response = await axios.post("http://localhost:3000/api/v1/users/login", {
-        email,
-        password,
-    }, 
-    { withCredentials: true } 
-    );
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/users/login",
+        { email, password },
+        { withCredentials: true }
+      );
 
-    if (response.status === 200) {
+      if (response.status === 200) {
         toast.success("Sign in successful");
+        setIsAuthenticated(true);
         navigate("/products");
-    }
-    setIsAuthenticated(true);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      }
     } catch (error) {
+      console.error("Error signing in:", error);
       toast.error("Login failed. Please check your credentials.");
     }
   };
 
-  const signup = async (    
-  username: string,
-  email: string,
-  password: string,
-  address: string,
-  phone: string) => {
+  const signup = async (
+    username: string,
+    email: string,
+    password: string,
+    address: string,
+    phone: string
+  ) => {
     try {
-    const response = await axios.post("http://localhost:3000/api/v1/users", {
-        username,
-        email,
-        password,
-        address,
-        phone
-    }, 
-    { withCredentials: true } 
-    );
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/users",
+        { username, email, password, address, phone },
+        { withCredentials: true }
+      );
 
-    if (response.status === 200) {
+      if (response.status === 201 || response.status === 200) {
         toast.success("Sign up successful");
+        setIsAuthenticated(true);
         navigate("/products");
-    }
-    setIsAuthenticated(true);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      }
     } catch (error) {
+      console.error("Error signing up:", error);
       toast.error("Sign up failed. Please try again.");
     }
   };
 
+  const logout = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/users/logout", // Ensure this endpoint exists on your backend
+        {},
+        { withCredentials: true }
+      );
+
+      if (response.status === 200) {
+        toast.success("Logged out successfully");
+        setIsAuthenticated(false);
+        navigate("/signin");
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+      toast.error("Logout failed. Please try again.");
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, signup }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, signup, logout }}>
       {children}
     </AuthContext.Provider>
   );

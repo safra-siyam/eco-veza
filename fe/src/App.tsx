@@ -7,17 +7,19 @@ import ProductList from "./ProdcutList";
 import Home from "./Home";
 import ProtectedRoute from "./ProectedRoute";
 import SignIn from "./SignIn";
-import AddFruit from "./Items/AddItems";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./context/AuthContext";
 import { ItemProvider } from "./context/ItemContext";
-import FruitDetail from "./Items/ItemDetail";
+import ItemDetail from "./Items/ItemDetail";
 import { CartProvider } from "./context/CartContext";
 import CartDetails from "./Items/Cart";
 import Checkout from "./Checkout";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import AddItem from "./Items/AddItems";
+import AboutUs from "./AboutUs"; // Import About Us page
+import Contact from "./ContactUs"; // Import Contact Us page
 
 const stripePromise = loadStripe('pk_test_51PrHd9Rxa5Loq6IR3SIztZIJZkB84kb9VqkvxMleq3b8CX2UovH3ZWVf5Gjp3RJ8vfE0zr76grZof1lJDiJdByZr008kQcQo5c');
 
@@ -44,8 +46,8 @@ const App: React.FC = () => {
                 <Route path="/" element={<Layout />}>
                   <Route index element={<Home />} />
                   <Route path="/products" element={<ProtectedRoute element={<ProductList />} />} />
-                  <Route path="/add-fruit" element={<ProtectedRoute element={<AddFruit />}  />} />
-                  <Route path="/products/:id" element={<FruitDetail />} />
+                  <Route path="/add-item" element={<ProtectedRoute element={<AddItem />}  />} />
+                  <Route path="/products/:id" element={<ItemDetail />} />
                   <Route path="/cart" element={<CartDetails />} />
                   <Route path="/checkout" element={    
                   <Elements stripe={stripePromise}>
@@ -53,6 +55,10 @@ const App: React.FC = () => {
                   </Elements>} />
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/signin" element={<SignIn />} />
+
+                  {/* About Us and Contact Us Routes */}
+                  <Route path="/about" element={<AboutUs />} />
+                  <Route path="/contact" element={<Contact />} />
                 </Route>
               </Routes>
           </CartProvider>

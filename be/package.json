@@ -1,7 +1,7 @@
 {
-  "name": "fruit-selling-app-backend",
+  "name": "eco-veza",
   "version": "1.0.0",
-  "description": "fruit selling app using node js and type script",
+  "description": "eco-veza using node js and type script",
   "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,7 +14,7 @@
     "javascript",
     "typescript"
   ],
-  "author": "K.Dilakshan",
+  "author": "safra siyam",
   "license": "ISC",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

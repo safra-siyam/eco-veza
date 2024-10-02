@@ -13,15 +13,31 @@ const ProductList = () => {
   }, [getAllItems]);
     
     return (
-        <div className="container mx-auto p-4">
-            <h2 className="text-2xl font-bold mb-4">Products</h2>
-            <Link to={'/add-fruit'} className="text-gray-700 hover:text-blue-500 transition">
-              <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Add Product</button>
-            </Link>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {items.map((product: ItemProps) => (
-                    <ProductCard key={product._id} productName={product.productName} description={product.description} price={product.price} stock={product.stock} _id={product._id} />
-                ))}
+        <div className="min-h-screen bg-[#F5F5DC]">
+            <div className="container mx-auto p-6">
+                {/* Header Section */}
+                <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-3xl font-bold text-[#228B22]">Our Products</h2>
+                    <Link to={'/add-item'}>
+                      <button className="bg-[#228B22] text-white px-4 py-2 rounded hover:bg-green-700 transition-colors duration-300">
+                        Add Product
+                      </button>
+                    </Link>
+                </div>
+                
+                {/* Products Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {items.map((product: ItemProps) => (
+                        <ProductCard 
+                          key={product._id} 
+                          productName={product.productName} 
+                          description={product.description} 
+                          price={product.price} 
+                          stock={product.stock} 
+                          _id={product._id} 
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );

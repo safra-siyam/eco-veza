@@ -80,13 +80,19 @@ const SignupPage = () => {
   };
 
   // Handle form submission
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (validate()) {
       console.log("Form submitted with data:", formData);
       // Perform your form submission logic here, e.g., send data to backend
-      await signup(formData.username, formData.email, formData.password, formData.address, formData.phone);
+      await signup(
+        formData.username,
+        formData.email,
+        formData.password,
+        formData.address,
+        formData.phone
+      );
 
       // Reset form data
       setFormData({
@@ -108,13 +114,13 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
+    <div className="flex items-center justify-center min-h-screen bg-[#F5F5DC]">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md border-2 border-[#228B22]">
+        <h2 className="text-3xl font-bold mb-6 text-center text-[#228B22]">Sign Up</h2>
         <form onSubmit={handleSubmit}>
           {/* Username */}
           <div className="mb-4">
-            <label htmlFor="username" className="block text-gray-700 font-semibold">
+            <label htmlFor="username" className="block text-[#228B22] font-semibold mb-1">
               Username
             </label>
             <input
@@ -123,9 +129,10 @@ const SignupPage = () => {
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className={`w-full p-2 border ${
-                errors.username ? "border-red-500" : "border-gray-300"
-              } rounded`}
+              className={`w-full p-3 border ${
+                errors.username ? "border-red-500" : "border-[#228B22]"
+              } rounded-md focus:outline-none focus:ring-2 focus:ring-[#228B22]`}
+              placeholder="Enter your username"
             />
             {errors.username && (
               <p className="text-red-500 text-sm mt-1">{errors.username}</p>
@@ -134,7 +141,7 @@ const SignupPage = () => {
 
           {/* Email */}
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 font-semibold">
+            <label htmlFor="email" className="block text-[#228B22] font-semibold mb-1">
               Email
             </label>
             <input
@@ -143,9 +150,10 @@ const SignupPage = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full p-2 border ${
-                errors.email ? "border-red-500" : "border-gray-300"
-              } rounded`}
+              className={`w-full p-3 border ${
+                errors.email ? "border-red-500" : "border-[#228B22]"
+              } rounded-md focus:outline-none focus:ring-2 focus:ring-[#228B22]`}
+              placeholder="Enter your email"
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">{errors.email}</p>
@@ -154,7 +162,7 @@ const SignupPage = () => {
 
           {/* Password */}
           <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700 font-semibold">
+            <label htmlFor="password" className="block text-[#228B22] font-semibold mb-1">
               Password
             </label>
             <input
@@ -163,9 +171,10 @@ const SignupPage = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className={`w-full p-2 border ${
-                errors.password ? "border-red-500" : "border-gray-300"
-              } rounded`}
+              className={`w-full p-3 border ${
+                errors.password ? "border-red-500" : "border-[#228B22]"
+              } rounded-md focus:outline-none focus:ring-2 focus:ring-[#228B22]`}
+              placeholder="Enter your password"
             />
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">{errors.password}</p>
@@ -174,7 +183,7 @@ const SignupPage = () => {
 
           {/* Address */}
           <div className="mb-4">
-            <label htmlFor="address" className="block text-gray-700 font-semibold">
+            <label htmlFor="address" className="block text-[#228B22] font-semibold mb-1">
               Address
             </label>
             <input
@@ -183,9 +192,10 @@ const SignupPage = () => {
               name="address"
               value={formData.address}
               onChange={handleChange}
-              className={`w-full p-2 border ${
-                errors.address ? "border-red-500" : "border-gray-300"
-              } rounded`}
+              className={`w-full p-3 border ${
+                errors.address ? "border-red-500" : "border-[#228B22]"
+              } rounded-md focus:outline-none focus:ring-2 focus:ring-[#228B22]`}
+              placeholder="Enter your address"
             />
             {errors.address && (
               <p className="text-red-500 text-sm mt-1">{errors.address}</p>
@@ -193,8 +203,8 @@ const SignupPage = () => {
           </div>
 
           {/* Phone */}
-          <div className="mb-4">
-            <label htmlFor="phone" className="block text-gray-700 font-semibold">
+          <div className="mb-6">
+            <label htmlFor="phone" className="block text-[#228B22] font-semibold mb-1">
               Phone
             </label>
             <input
@@ -203,9 +213,10 @@ const SignupPage = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className={`w-full p-2 border ${
-                errors.phone ? "border-red-500" : "border-gray-300"
-              } rounded`}
+              className={`w-full p-3 border ${
+                errors.phone ? "border-red-500" : "border-[#228B22]"
+              } rounded-md focus:outline-none focus:ring-2 focus:ring-[#228B22]`}
+              placeholder="Enter your phone number"
             />
             {errors.phone && (
               <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
@@ -215,12 +226,11 @@ const SignupPage = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            className="w-full bg-[#228B22] text-white p-3 rounded-md hover:bg-green-700 transition-colors duration-300"
           >
             Sign Up
           </button>
         </form>
-
       </div>
     </div>
   );
