@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users',UserRoutes);
 app.use('/api/v1/store', StoreRoutes);
-app.use('/api/v1/item', ItemRoutes);
+app.use('/api/v1/items', ItemRoutes);
 app.use('/api/v1/payment', PaymentRoutes);
 
 app.get('/', (req, res) => {

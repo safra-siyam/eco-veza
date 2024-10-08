@@ -53,7 +53,7 @@ export const ItemProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const getAllItems = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/v1/fruits", {
+      const response = await axios.get("http://localhost:3000/api/v1/items", {
         withCredentials: true,
       });
       console.log(response.data);

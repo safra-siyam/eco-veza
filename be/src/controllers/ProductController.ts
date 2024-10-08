@@ -52,7 +52,7 @@ export const getItemById = async (req: Request, res: Response) => {
     try {
         const item = await Item.findById({ _id: id });
 
-        // If the fruit is not found
+        // If the item is not found
         if (!item) {
             return res.status(404).json({ message: 'Item not found' });
         }
@@ -75,7 +75,7 @@ export const getItemBySellerId = async (req: Request, res: Response) => {
         // Send success response
         res.status(200).json({ item });
     } catch (error) {
-        console.error('Error fetching fruits:', error);
+        console.error('Error fetching items:', error);
         res.status(500).json({ message: 'An error occurred while fetching the items' });
     }
 }
@@ -91,7 +91,7 @@ export const updateItem = async (req: Request, res: Response) => {
     }
 
     try {
-        // Find the fruit by ProductID and update it with the provided data
+        // Find the item by ProductID and update it with the provided data
         const updatedItem = await Item.findOneAndUpdate(
             { ProductID }, // Filter
             { ProductName, Description, Price, Quantity, CategoryID, SellerID, ImageURL }, // Update data
@@ -116,7 +116,7 @@ export const deleteItem = async (req: Request, res: Response) => {
     try {
         const { ProductID } = req.params; // Ensure the parameter name matches the route
 
-        // Find and delete the fruit
+        // Find and delete the item
         const deletedItem = await Item.findOneAndDelete({ ProductID });
 
         if (!deletedItem) {

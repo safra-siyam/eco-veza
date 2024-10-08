@@ -6,9 +6,9 @@ const router = Router();
 
 router.get('/', authMiddleware, getAllItems);
 router.get('/get/:id', getItemById);
-router.post('/addFruit', authMiddleware ,addItem);
+router.post('/addItem', authMiddleware ,addItem);
 router.get('/:sellerId', getItemBySellerId);
-router.put('/updateFruit/:ProductID', updateItem);
-router.delete('/deleteFruit/:ProductID', deleteItem);
+router.put('/updateItem/:ProductID', updateItem);
+router.delete('/deleteItem/:ProductID', deleteItem);
 
 export default router;
