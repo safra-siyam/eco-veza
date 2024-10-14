@@ -22,10 +22,14 @@ app.use(cors({
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 }));
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
     console.log(`Request URL: ${req.url}`);
     console.log(`Request Method: ${req.method}`);
+    console.log(`Headers: ${JSON.stringify(req.headers)}`);
+    console.log(`Params: ${JSON.stringify(req.params)}`);
+    console.log(`Body: ${JSON.stringify(req.body)}`);
     next();
 });
 

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useItem } from '../context/ItemContext';
 import { useCart } from '../context/CartContext';
 
-const FruitDetail = () => {
+const ItemDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { selectedItem, getItemDetailById } = useItem();
   const { addToCart } = useCart();
@@ -69,4 +69,4 @@ const FruitDetail = () => {
   );
 };
 
-export default FruitDetail;
+export default ItemDetail;

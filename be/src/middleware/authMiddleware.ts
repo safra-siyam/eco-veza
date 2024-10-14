@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { User, IUser } from '../models/User';
 import { Types } from 'mongoose';
+// import bcrypt from 'bcryptjs';
 
 export interface AuthRequest extends Request {
   user?: IUser;

@@ -1,6 +1,7 @@
 import { AuthRequest } from '../middleware/authMiddleware';
 import { Request, Response } from "express";
 import Item from "../models/Product"; 
+import { Types } from 'mongoose';
 
 // Controller to create a new saleItem
 export const addItem = async (req: Request, res: Response) => {
@@ -83,18 +84,29 @@ export const getItemBySellerId = async (req: Request, res: Response) => {
 // Controller to update an existing item
 export const updateItem = async (req: Request, res: Response) => {
     const { ProductID } = req.params; // Get ProductID from the URL params
-    const { ProductName, Description, Price, Quantity, CategoryID, SellerID, ImageURL } = req.body;
+    console.log(`Request Body : ${JSON.stringify(req.body)}`)
+    const { productName, description, price, stock } = req.body;
 
     // Check if ProductID is provided
     if (!ProductID) {
         return res.status(400).json({ message: 'ProductID is required' });
     }
-
+    console.log(`Product ID : ${ProductID}`)
     try {
+
+        // Create an update object dynamically based on fields provided in the request body
+        const updateFields: any = {};
+        if (productName !== undefined) updateFields.productName = productName;
+        if (description !== undefined) updateFields.description = description;
+        if (price !== undefined) updateFields.price = price;
+        if (stock !== undefined) updateFields.stock = stock;
+
+        console.log(`Fields To Update : ${JSON.stringify(updateFields)}`)
+
         // Find the item by ProductID and update it with the provided data
         const updatedItem = await Item.findOneAndUpdate(
-            { ProductID }, // Filter
-            { ProductName, Description, Price, Quantity, CategoryID, SellerID, ImageURL }, // Update data
+            { _id: new Types.ObjectId(ProductID) }, // Filter
+            { $set: updateFields }, // Update data
             { new: true } // Return the updated document
         );
 
@@ -117,7 +129,7 @@ export const deleteItem = async (req: Request, res: Response) => {
         const { ProductID } = req.params; // Ensure the parameter name matches the route
 
         // Find and delete the item
-        const deletedItem = await Item.findOneAndDelete({ ProductID });
+        const deletedItem = await Item.findOneAndDelete({ _id: new Types.ObjectId(ProductID) });
 
         if (!deletedItem) {
             return res.status(404).json({ message: 'Item not found' });
