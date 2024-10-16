@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useCallback, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -35,7 +35,7 @@ export const ItemProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const navigate = useNavigate();
 
-  const addItem = async (itemDetails: ItemProps) => {
+  const addItem = useCallback(async (itemDetails: ItemProps) => {
     try {
         const response = await axios.post("http://localhost:3000/api/v1/items/addItem", itemDetails, 
         { withCredentials: true } 
@@ -49,23 +49,23 @@ export const ItemProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (error) {
       toast.error("Failed to add item");
     }
-  };
+  },[]);
 
-  const getAllItems = async () => {
+  const getAllItems = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/v1/items", {
-        withCredentials: true,
-      });
-      console.log(response.data);
-      setItems(response.data.items);
-      return response.data;
+        const response = await axios.get("http://localhost:3000/api/v1/items", {
+            withCredentials: true,
+        });
+        console.log(response.data);
+        setItems(response.data.item);
+        return response.data;
     } catch (error) {
-      console.error("Error fetching items:", error);
-      return [];
+        console.error("Error fetching items:", error);
+        return [];
     }
-  }
+}, []); 
 
-  const getItemDetailById = async (id: string) => {
+  const getItemDetailById = useCallback(async (id: string) => {
     try {
       const response = await axios.get(`http://localhost:3000/api/v1/items/get/${id}`, {
         withCredentials: true,
@@ -76,7 +76,7 @@ export const ItemProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.error("Error fetching item detail:", error);
       return null;
     }
-  }
+  },[]);
 
 
 return (
