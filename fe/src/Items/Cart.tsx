@@ -1,7 +1,6 @@
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 
-
 const CartDetails = () => {
   const { cart } = useCart();
   const navigate = useNavigate();
@@ -9,7 +8,7 @@ const CartDetails = () => {
   // Function to calculate the total price
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => {
-      const currentTotal = item.price * item.addToCartQuantity
+      const currentTotal = item.price * item.addToCartQuantity;
       return total + currentTotal;
     }, 0);
   };
@@ -21,23 +20,23 @@ const CartDetails = () => {
   };
 
   if (!cart.length) {
-    return <div>Your cart is empty.</div>;
+    return <div className="text-green-800">Your cart is empty. Shop eco-friendly products and help the planet!</div>;
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-3xl font-bold mb-4">Your Cart</h2>
+    <div className="container mx-auto p-4 bg-green-50 rounded-lg shadow-md">
+      <h2 className="text-4xl font-bold text-green-700 mb-4">Organic Cart</h2>
 
       {/* Cart Items */}
       <div className="space-y-4">
         {cart.map((item) => {
           return (
-            <div key={item._id} className="flex justify-between items-center p-4 border-b">
+            <div key={item._id} className="flex justify-between items-center p-4 border-b border-green-200">
               <div>
-                <h3 className="text-xl font-semibold">{item.productName}</h3>
-                <p className="text-gray-600">Quantity: {item.addToCartQuantity}</p>
+                <h3 className="text-xl font-semibold text-green-800">{item.productName}</h3>
+                <p className="text-green-600">Quantity: {item.addToCartQuantity}</p>
               </div>
-              <p className="text-lg font-semibold">${(item.price * item.addToCartQuantity).toFixed(2)}</p>
+              <p className="text-lg font-semibold text-green-700">${(item.price * item.addToCartQuantity).toFixed(2)}</p>
             </div>
           );
         })}
@@ -45,7 +44,7 @@ const CartDetails = () => {
 
       {/* Total Price */}
       <div className="mt-4">
-        <h3 className="text-2xl font-bold">
+        <h3 className="text-2xl font-bold text-green-800">
           Total: ${calculateTotalPrice().toFixed(2)}
         </h3>
       </div>
@@ -53,11 +52,16 @@ const CartDetails = () => {
       {/* Checkout Button */}
       <div className="mt-6">
         <button
-          className="px-6 py-2 bg-green-600 text-white font-semibold rounded-lg"
+          className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg"
           onClick={handleCheckout}
         >
-          Checkout
+          Proceed to Checkout
         </button>
+      </div>
+
+      {/* Eco Message */}
+      <div className="mt-6 text-green-600">
+        <p>🌿 Thank you for choosing eco-friendly products! Together, we can make a difference for our planet. 🌍</p>
       </div>
     </div>
   );

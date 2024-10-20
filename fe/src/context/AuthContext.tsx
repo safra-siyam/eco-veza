@@ -15,7 +15,7 @@ interface AuthContextProps {
     address: string,
     phone: string
   ) => Promise<void>;
-  logout: () => Promise<void>; // Added logout to the interface
+  logout: () => Promise<void>; 
 }
 
 const AuthContext = createContext<AuthContextProps>({

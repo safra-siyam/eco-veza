@@ -61,10 +61,10 @@ const Checkout: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-3xl font-bold mb-4">Checkout</h2>
+    <div className="container mx-auto p-4 bg-green-50 rounded-lg shadow-md">
+      <h2 className="text-4xl font-bold text-green-700 mb-4"> Checkout</h2>
       {paymentSuccess ? (
-        <p className="text-green-600">Payment succeeded! Thank you for your purchase.</p>
+        <p className="text-green-600">🌿 Payment succeeded! Thank you for supporting sustainable products. 🌍</p>
       ) : (
         <form onSubmit={handleSubmit} className="w-full max-w-md">
           <div className="mb-4">
@@ -88,7 +88,7 @@ const Checkout: React.FC = () => {
           <button
             type="submit"
             disabled={!stripe || loading}
-            className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg"
+            className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg"
           >
             {loading ? 'Processing...' : 'Pay Now'}
           </button>
