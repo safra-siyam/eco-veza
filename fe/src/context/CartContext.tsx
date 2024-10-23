@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 
-export interface FruitProps {
+// Define the structure of an item in the cart
+export interface ItemProps {
   _id: string;
   description: string;
   price: number;
@@ -10,24 +11,30 @@ export interface FruitProps {
   addToCartQuantity: number;
 }
 
-interface FruitContextProps {
-  addToCart: (fruitDetails: FruitProps, quantity: number) => Promise<void>;
-  cart: FruitProps[];
+// Define the structure of the CartContext
+interface ItemContextProps {
+  addToCart: (itemDetails: ItemProps, quantity: number) => Promise<void>;
+  cart: ItemProps[];
+  clearCart: () => void;
 }
 
-const CartContext = createContext<FruitContextProps>({
+// Create the CartContext with default values
+const CartContext = createContext<ItemContextProps>({
   addToCart: async () => {},
   cart: [],
+  clearCart: () => {},
 });
 
+// Custom hook to use the CartContext
 export const useCart = () => useContext(CartContext);
 
+// CartProvider component to wrap around parts of the app that need cart functionality
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [cart, setCart] = React.useState<FruitProps[]>([]);
+  const [cart, setCart] = React.useState<ItemProps[]>([]);
 
-  // Load cart from localStorage on component mount
+  // Load cart from localStorage when the component mounts
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
@@ -36,27 +43,30 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, []);
 
-  // Save cart to localStorage whenever cart state changes
+  // Save cart to localStorage whenever the cart state changes
   useEffect(() => {
     if (cart.length > 0) {
       console.log("Saving cart to localStorage:", cart);
       localStorage.setItem("cart", JSON.stringify(cart)); // Save cart to localStorage
+    } else {
+      localStorage.removeItem("cart"); // Clear localStorage if the cart is empty
     }
   }, [cart]);
 
-  const addToCart = async (fruitDetails: FruitProps, quantity: number) => {
+  // Function to add an item to the cart or update its quantity if it already exists
+  const addToCart = async (itemDetails: ItemProps, quantity: number) => {
     try {
-      // Check if the fruit is already in the cart
-      const existingFruitIndex = cart.findIndex(
-        (item) => item._id === fruitDetails._id
+      // Check if the item is already in the cart
+      const existingItemIndex = cart.findIndex(
+        (item) => item._id === itemDetails._id
       );
 
-      let updatedCart: FruitProps[];
+      let updatedCart: ItemProps[];
 
-      if (existingFruitIndex !== -1) {
-        // If the fruit already exists, update its quantity
+      if (existingItemIndex !== -1) {
+        // If the item already exists, update its quantity
         updatedCart = cart.map((item, index) =>
-          index === existingFruitIndex
+          index === existingItemIndex
             ? {
                 ...item,
                 addToCartQuantity: item.addToCartQuantity + quantity,
@@ -64,20 +74,28 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
             : item
         );
       } else {
-        // If the fruit is new to the cart, add it
-        updatedCart = [...cart, { ...fruitDetails, addToCartQuantity: quantity }];
+        // If the item is new to the cart, add it
+        updatedCart = [...cart, { ...itemDetails, addToCartQuantity: quantity }];
       }
 
       setCart(updatedCart); // Update the state with the new or modified cart
-      toast.success(`Added ${quantity} ${fruitDetails.productName} to cart`);
+      toast.success(`Added ${quantity} ${itemDetails.productName} to cart`);
     } catch (error) {
       console.error("Error adding to cart:", error);
-      toast.error("Failed to add fruit to cart");
+      toast.error("Failed to add item to cart");
     }
   };
 
+  // Function to clear the cart (on sign-out or when needed)
+  const clearCart = () => {
+    setCart([]); // Clear cart state
+    localStorage.removeItem("cart"); // Remove cart from localStorage
+    console.log("Cart cleared.");
+  };
+
+  // Provide the context values (addToCart, cart, clearCart)
   return (
-    <CartContext.Provider value={{ addToCart, cart }}>
+    <CartContext.Provider value={{ addToCart, cart, clearCart }}>
       {children}
     </CartContext.Provider>
   );

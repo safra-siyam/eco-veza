@@ -1,13 +1,18 @@
-// LogoutButton.tsx
-
 import React from "react";
 import { useAuth } from "./context/AuthContext";
+import { useCart } from "./context/CartContext"; // Import the useCart hook
 
 const LogoutButton: React.FC = () => {
   const { logout } = useAuth();
+  const { clearCart } = useCart(); // Get clearCart from CartContext
 
   const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault(); // Prevent default link behavior
+
+    // Clear the cart before logging out
+    clearCart(); 
+
+    // Proceed with the logout functionality from AuthContext
     await logout();
   };
 
