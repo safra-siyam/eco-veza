@@ -9,6 +9,7 @@ const AddSeller = () => {
     phone: '',
     storeName: '',
     address: '',
+    password: '',
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +27,7 @@ const AddSeller = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/sellers', sellerData, {
+      const response = await axios.post('http://localhost:3000/api/v1/sellers/add', sellerData, {
         withCredentials: true, // If your backend uses cookies or sessions
       });
 
@@ -39,6 +40,7 @@ const AddSeller = () => {
           phone: '',
           storeName: '',
           address: '',
+          password: '',
         });
       }
     } catch (error) {
@@ -107,6 +109,18 @@ const AddSeller = () => {
             required
           />
         </div>
+        
+        <div className="mb-4">
+          <label className="block text-sm font-semibold mb-2">Password</label>
+          <input
+            type="password"
+            name="password"
+            value={sellerData.password}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded-md"
+            required
+          />
+          </div>
 
         <button
           type="submit"

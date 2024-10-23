@@ -120,14 +120,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   ) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/sellers", // Endpoint to add sellers
+        "http://localhost:3000/api/v1/sellers/add", 
         { username, email, password, storeName, address, phone },
         { withCredentials: true }
       );
 
       if (response.status === 201 || response.status === 200) {
         toast.success("Seller added successfully");
-        navigate("/admin/sellers"); // Navigate to the seller list or another admin page
+        navigate("/admin/sellers"); 
       }
     } catch (error) {
       console.error("Error adding seller:", error);

@@ -1,4 +1,3 @@
-// models/Seller.ts
 import mongoose from 'mongoose';
 
 const SellerSchema = new mongoose.Schema({
@@ -19,6 +18,10 @@ const SellerSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    password: {
+        type: String,
+        required: true,
+    }
 });
 
 const Seller = mongoose.model('Seller', SellerSchema);

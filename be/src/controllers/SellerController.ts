@@ -1,12 +1,11 @@
-// controllers/SellerController.ts
 import { Request, Response } from 'express';
 import Seller from '../models/Seller';
 
 // Controller to add a new seller
 export const addSeller = async (req: Request, res: Response) => {
     try {
-        const { name, email, storeName } = req.body;
-        const newSeller = new Seller({ name, email, storeName });
+        const { name, email, storeName,password } = req.body;
+        const newSeller = new Seller({ name, email, storeName,password });
 
         await newSeller.save();
 
