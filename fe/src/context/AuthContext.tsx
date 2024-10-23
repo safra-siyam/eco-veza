@@ -1,10 +1,9 @@
-// AuthContext.tsx
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+// Define the context interface
 interface AuthContextProps {
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
@@ -15,24 +14,36 @@ interface AuthContextProps {
     address: string,
     phone: string
   ) => Promise<void>;
-  logout: () => Promise<void>; 
+  addSeller: (
+    username: string,
+    email: string,
+    password: string,
+    storeName: string,
+    address: string,
+    phone: string
+  ) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
+// Create the context with default values
 const AuthContext = createContext<AuthContextProps>({
   isAuthenticated: false,
   login: async () => {},
   signup: async () => {},
-  logout: async () => {}, // Provide a default empty function
+  addSeller: async () => {}, 
+  logout: async () => {},
 });
 
+// Custom hook to use the auth context
 export const useAuth = () => useContext(AuthContext);
 
+// AuthProvider component to wrap your app
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check for the existence of the JWT cookie when the component mounts
+    // Check if the user is authenticated when the component mounts
     const checkAuth = async () => {
       try {
         const response = await axios.get("http://localhost:3000/api/v1/auth/check", {
@@ -52,6 +63,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     checkAuth();
   }, []);
 
+  // Login function
   const login = async (email: string, password: string) => {
     try {
       const response = await axios.post(
@@ -71,6 +83,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Signup function for buyers
   const signup = async (
     username: string,
     email: string,
@@ -96,10 +109,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Add Seller function for the admin
+  const addSeller = async (
+    username: string,
+    email: string,
+    password: string,
+    storeName: string,
+    address: string,
+    phone: string
+  ) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/sellers", // Endpoint to add sellers
+        { username, email, password, storeName, address, phone },
+        { withCredentials: true }
+      );
+
+      if (response.status === 201 || response.status === 200) {
+        toast.success("Seller added successfully");
+        navigate("/admin/sellers"); // Navigate to the seller list or another admin page
+      }
+    } catch (error) {
+      console.error("Error adding seller:", error);
+      toast.error("Failed to add seller. Please try again.");
+    }
+  };
+
+  // Logout function
   const logout = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/users/logout", // Ensure this endpoint exists on your backend
+        "http://localhost:3000/api/v1/users/logout",
         {},
         { withCredentials: true }
       );
@@ -115,8 +155,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Provide the context values
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, signup, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, login, signup, addSeller, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

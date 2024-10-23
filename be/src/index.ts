@@ -9,6 +9,7 @@ import ItemRoutes from './routes/ItemRoutes';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import authRoutes from './routes/AuthRoutes';
+import SellerRoutes from './routes/sellerRoutes';
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use('/api/v1/users',UserRoutes);
 app.use('/api/v1/store', StoreRoutes);
 app.use('/api/v1/items', ItemRoutes);
 app.use('/api/v1/payment', PaymentRoutes);
+app.use('/api/v1/sellers', SellerRoutes);
 
 app.get('/', (req, res) => {
     res.send("hello");

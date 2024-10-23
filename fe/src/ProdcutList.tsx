@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import { useEffect } from 'react';
 import { ItemProps, useItem } from './context/ItemContext';
@@ -18,11 +18,11 @@ const ProductList = () => {
                 {/* Header Section */}
                 <div className="flex items-center justify-between mb-6">
                     <h2 className="text-3xl font-bold text-[#228B22]">Our Products</h2>
-                    <Link to={'/add-item'}>
+                    {/* <Link to={'/add-item'}>
                       <button className="bg-[#228B22] text-white px-4 py-2 rounded hover:bg-green-700 transition-colors duration-300">
                         Add Product
                       </button>
-                    </Link>
+                    </Link> */}
                 </div>
                 
                 {/* Products Grid */}

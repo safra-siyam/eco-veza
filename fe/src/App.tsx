@@ -17,9 +17,11 @@ import CartDetails from "./Items/Cart";
 import Checkout from "./Checkout";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import AddItem from "./Items/AddItems";
+// import AddItem from "./Items/AddItems";
 import AboutUs from "./AboutUs"; 
 import Contact from "./ContactUs"; 
+import AddSeller from './AddSeller';
+
 
 const stripePromise = loadStripe('pk_test_51PrHd9Rxa5Loq6IR3SIztZIJZkB84kb9VqkvxMleq3b8CX2UovH3ZWVf5Gjp3RJ8vfE0zr76grZof1lJDiJdByZr008kQcQo5c');
 
@@ -46,7 +48,7 @@ const App: React.FC = () => {
                 <Route path="/" element={<Layout />}>
                   <Route index element={<Home />} />
                   <Route path="/products" element={<ProtectedRoute element={<ProductList />} />} />
-                  <Route path="/add-item" element={<ProtectedRoute element={<AddItem />}  />} />
+                  {/* <Route path="/add-item" element={<ProtectedRoute element={<AddItem />}  />} /> */}
                   <Route path="/products/:id" element={<ItemDetail />} />
                   <Route path="/cart" element={<CartDetails />} />
                   <Route path="/checkout" element={    
@@ -56,7 +58,7 @@ const App: React.FC = () => {
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/signin" element={<SignIn />} />
 
-                  {/* About Us and Contact Us Routes */}
+                  <Route path="/add-seller" element={<AddSeller />} />
                   <Route path="/about" element={<AboutUs />} />
                   <Route path="/contact" element={<Contact />} />
                 </Route>
