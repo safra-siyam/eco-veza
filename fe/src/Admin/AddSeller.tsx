@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
-const AddSeller = () => {
+interface AddSellerProps {
+  onSellerAdded: (newSeller: any) => void; // Function to notify parent of the new seller
+}
+
+const AddSeller: React.FC<AddSellerProps> = ({ onSellerAdded }) => {
   const [sellerData, setSellerData] = useState({
     name: '',
     email: '',
     phone: '',
     storeName: '',
     address: '',
-    password: '',
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -28,11 +32,29 @@ const AddSeller = () => {
 
     try {
       const response = await axios.post('http://localhost:3000/api/v1/sellers/add', sellerData, {
-        withCredentials: true, // If your backend uses cookies or sessions
+        withCredentials: true,
       });
 
       if (response.status === 201) {
+        const newSeller = response.data.seller; // Get new seller details from response
+
         toast.success('Seller added successfully!');
+
+        // Display seller's password in a SweetAlert pop-up
+        if (newSeller.password) {
+          Swal.fire({
+            title: `Your password is: ${newSeller.password}`,
+            text: 'Please note this down as it is one-time.',
+            icon: 'info',
+            confirmButtonText: 'OK',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+          });
+        }
+
+        // Notify parent component (AdminSellers) about the new seller
+        onSellerAdded(newSeller);
+
         // Clear form after successful submission
         setSellerData({
           name: '',
@@ -40,7 +62,6 @@ const AddSeller = () => {
           phone: '',
           storeName: '',
           address: '',
-          password: '',
         });
       }
     } catch (error) {
@@ -109,18 +130,6 @@ const AddSeller = () => {
             required
           />
         </div>
-        
-        <div className="mb-4">
-          <label className="block text-sm font-semibold mb-2">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={sellerData.password}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded-md"
-            required
-          />
-          </div>
 
         <button
           type="submit"

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { Types } from 'mongoose';
 import { User, IUser } from "../models/User";
+import Seller from "../models/Seller";
 
 const generateToken = (id: Types.ObjectId) => {
     return jwt.sign({ id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
@@ -54,6 +55,7 @@ export const register = async (req: Request, res: Response) => {
 };
 
 // Login user
+// Login user
 export const login = async (req: Request, res: Response) => {
     console.log('Login body:', req.body);
 
@@ -66,22 +68,41 @@ export const login = async (req: Request, res: Response) => {
     try {
         // Find user by email
         const user = await User.findOne({ email });
-        if (!user) {
+        const seller = await Seller.findOne({email})
+        if (!user && !seller) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 
-        // Check password
-        const isMatch = await user.comparePassword(password);
-        if (!isMatch) {
-            return res.status(401).json({ message: 'Invalid email or password' });
+        if(user){
+            // Check password
+            const isMatch = await user.comparePassword(password);
+            if (!isMatch) {
+                return res.status(401).json({ message: 'Invalid email or password' });
+            }
+
+            // Generate JWT token
+            const token = generateToken(user._id);
+            res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
+
+            // Send response
+            res.status(200).json({ message: 'Login successful', user: { username: user.username, email: user.email } });
         }
 
-        // Generate JWT token
-        const token = generateToken(user._id);
-        res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
+        if(seller){
+            // Check password
+            const isMatch = seller.password==password
+            if (!isMatch) {
+                return res.status(401).json({ message: 'Invalid email or password' });
+            }
 
-        // Send response
-        res.status(200).json({ message: 'Login successful', user: { username: user.username, email: user.email } });
+            // Generate JWT token
+            const token = generateToken(seller._id);
+            res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
+
+            // Send response
+            res.status(200).json({ message: 'Login successful', user: { username: seller.name, email: seller.email } });
+        }
+        
     } catch (error) {
         console.error('Error during user login:', error);
         res.status(500).json({ message: 'An error occurred during login' });
