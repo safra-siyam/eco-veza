@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
 interface AddSellerProps {
-  onSellerAdded: (newSeller: any) => void; // Function to notify parent of the new seller
+  onSellerAdded: (newSeller: any) => void; 
 }
 
 const AddSeller: React.FC<AddSellerProps> = ({ onSellerAdded }) => {

@@ -61,7 +61,14 @@ const SignIn: React.FC = () => {
       console.log("Form submitted with data:", formData);
 
       try {
-        await login(formData.email, formData.password);
+        // Admin check
+        if (formData.email === "admin@gmail.com" && formData.password === "adminn") {
+          navigate("/admindashboard"); 
+        } else {
+          // If not admin, proceed with regular login process
+          await login(formData.email, formData.password);
+          navigate("/products"); // Redirect to products page after successful login
+        }
 
         // Reset form fields after successful submission
         setFormData({
