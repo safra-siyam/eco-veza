@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import LogoutButton from './LogoutButton';
-import logo from '../src/assets/logo.png'; 
+import logo from '../src/assets/logo.png';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,7 +21,7 @@ const Header = () => {
         </div>
 
         {/* Right Side: Navigation (Hidden on mobile) */}
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden md:flex space-x-8 items-center">
           <Link to="/" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
             Home
           </Link>
@@ -48,6 +48,14 @@ const Header = () => {
             </>
           )}
           {isAuthenticated && <LogoutButton />}
+
+          {/* Get Started Button in Navbar */}
+          <Link
+            to="/signinseller"
+            className="bg-[#228B22] text-white py-2 px-4 rounded hover:bg-[#145214] transition duration-300"
+          >
+            Seller
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -132,6 +140,15 @@ const Header = () => {
                 <LogoutButton />
               </li>
             )}
+            {/* Get Started Button for Mobile */}
+            <li>
+              <Link
+                to="/get-started"
+                className="bg-[#228B22] text-white py-2 px-4 rounded hover:bg-[#145214] transition duration-300"
+              >
+                Seller
+              </Link>
+            </li>
           </ul>
         </nav>
       )}

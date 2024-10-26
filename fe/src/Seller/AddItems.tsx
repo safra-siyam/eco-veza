@@ -1,4 +1,3 @@
-// src/AddItem.tsx
 import React, { useState } from "react";
 import { useItem } from "../context/ItemContext";
 import { v4 as uuidv4 } from "uuid";
