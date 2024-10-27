@@ -28,15 +28,23 @@ const Header = () => {
           <Link to="/about" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
             About Us
           </Link>
-          <Link to="/products" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
-            Products
-          </Link>
+          {isAuthenticated && (
+            <>
+              <Link to="/products" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
+                Products
+              </Link>
+            </>
+          )}
           <Link to="/contact" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
             Contact Us
           </Link>
-          <Link to="/cart" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
-            Cart
-          </Link>
+          {isAuthenticated && (
+            <>
+              <Link to="/cart" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
+                Cart
+              </Link>
+            </>
+          )}
           {!isAuthenticated && (
             <>
               <Link to="/signin" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
