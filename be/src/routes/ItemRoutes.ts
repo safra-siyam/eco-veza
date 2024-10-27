@@ -4,11 +4,11 @@ import { authMiddleware } from "../middleware/authMiddleware";
 
 const router = Router();
 
-router.get('/', authMiddleware, getAllItems);
-router.get('/get/:id', authMiddleware, getItemById);
-router.post('/addItem', authMiddleware ,addItem);
-router.get('/:sellerId', authMiddleware, getItemBySellerId);
-router.put('/updateItem/:ProductID', authMiddleware, updateItem);
-router.delete('/deleteItem/:ProductID', authMiddleware, deleteItem);
+router.get('/', authMiddleware(['Buyer']), getAllItems);
+router.get('/get/:id', authMiddleware(['Buyer','Seller']), getItemById);
+router.post('/addItem', authMiddleware(['Seller']) ,addItem);
+router.get('/:sellerId', authMiddleware(['Seller']), getItemBySellerId);
+router.put('/updateItem/:ProductID', authMiddleware(['Seller']), updateItem);
+router.delete('/deleteItem/:ProductID', authMiddleware(['Seller']), deleteItem);
 
 export default router;

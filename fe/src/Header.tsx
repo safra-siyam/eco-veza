@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import LogoutButton from './LogoutButton';
 import logo from '../src/assets/logo.png';
+import Cookies from "js-cookie";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -28,7 +29,7 @@ const Header = () => {
           <Link to="/about" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
             About Us
           </Link>
-          {isAuthenticated && (
+          {isAuthenticated && Cookies.get("userType") == "Buyer" && (
             <>
               <Link to="/products" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
                 Products
@@ -38,7 +39,7 @@ const Header = () => {
           <Link to="/contact" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
             Contact Us
           </Link>
-          {isAuthenticated && (
+          {isAuthenticated && Cookies.get("userType") == "Buyer" &&  (
             <>
               <Link to="/cart" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
                 Cart
@@ -57,13 +58,13 @@ const Header = () => {
           )}
           {isAuthenticated && <LogoutButton />}
 
-          {/* Get Started Button in Navbar */}
+          {/* Get Started Button in Navbar
           <Link
             to="/signinseller"
             className="bg-[#228B22] text-white py-2 px-4 rounded hover:bg-[#145214] transition duration-300"
           >
             Seller
-          </Link>
+          </Link> */}
         </nav>
 
         {/* Mobile Menu Button */}

@@ -20,6 +20,14 @@ const AdminDashboard: React.FC = () => {
                     </li>
                     <li>
                         <Link 
+                            to="/add-seller"
+                            className="block text-lg font-semibold text-[#228B22] bg-white p-3 rounded-md hover:bg-[#228B22] hover:text-[#F5F5DC] transition-all"
+                        >
+                            Add Sellers
+                        </Link>
+                    </li>
+                    <li>
+                        <Link 
                             to="/productmanagement"
                             className="block text-lg font-semibold text-[#228B22] bg-white p-3 rounded-md hover:bg-[#228B22] hover:text-[#F5F5DC] transition-all"
                         >

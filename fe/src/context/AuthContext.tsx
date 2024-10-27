@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 // Define the context interface
 interface AuthContextProps {
@@ -51,12 +52,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
         if (response.data.authenticated) {
           setIsAuthenticated(true);
+          Cookies.set("userType", response.data.user.type)
         } else {
           setIsAuthenticated(false);
+          Cookies.remove("userType")
         }
       } catch (error) {
         console.error("Authentication check failed:", error);
         setIsAuthenticated(false);
+        Cookies.remove("userType")
       }
     };
 
@@ -75,7 +79,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (response.status === 200) {
         toast.success("Sign in successful");
         setIsAuthenticated(true);
-        navigate("/products");
+        Cookies.set("userType", response.data.user.type)
+
+        if(response.data.user.type=="Buyer"){
+          navigate("/products");
+        }
+        if(response.data.user.type=="Admin"){
+          navigate("/admindashboard");
+        }
+        if(response.data.user.type=="Seller"){
+          navigate("/sellerdashboard");
+        }
       }
     } catch (error) {
       console.error("Error signing in:", error);
@@ -101,6 +115,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (response.status === 201 || response.status === 200) {
         toast.success("Sign up successful");
         setIsAuthenticated(true);
+        Cookies.set("userType", response.data.user.type)
         navigate("/products");
       }
     } catch (error) {
@@ -147,6 +162,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (response.status === 200) {
         toast.success("Logged out successfully");
         setIsAuthenticated(false);
+        Cookies.remove("userType")
         navigate("/signin");
       }
     } catch (error) {

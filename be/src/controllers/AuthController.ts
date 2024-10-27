@@ -11,6 +11,8 @@ export const authController = async (req: AuthRequest, res: Response) => {
   console.log('Auth Middleware');
   const token = req.cookies.jwt;
 
+  console.log(`Token ${token}`)
+
   if (!token) {
     return res.status(401).json({ authenticated: false });
   }
@@ -19,12 +21,12 @@ export const authController = async (req: AuthRequest, res: Response) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: Types.ObjectId };
     const user = await User.findById(decoded.id).select('-password');
     if (!user) {
-        return res.status(401).json({ authenticated: false });
+      return res.status(401).json({ authenticated: false });
     }
-    return res.status(200).json({ authenticated: true });
+    return res.status(200).json({ authenticated: true, user: { username: user.username, email: user.email, type: user.userType } });
 
 
   } catch (err) {
     return res.status(401).json({ authenticated: false });
-}
+  }
 };

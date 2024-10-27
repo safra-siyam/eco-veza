@@ -6,12 +6,10 @@ import cors from 'cors';
 
 // Route imports
 import UserRoutes from './routes/UserRoutes';
-import StoreRoutes from './routes/StoreRoutes';
 import OrderRoutes from './routes/OrderRoutes';
 import PaymentRoutes from './routes/PaymentRoutes';
 import ItemRoutes from './routes/ItemRoutes';
 import AuthRoutes from './routes/AuthRoutes';
-import SellerRoutes from './routes/sellerRoutes';
 import AdminRoutes from './routes/AdminRoutes'; 
 
 // Load environment variables
@@ -50,11 +48,9 @@ app.use((req, res, next) => {
 // API routes
 app.use('/api/v1/auth', AuthRoutes);     
 app.use('/api/v1/users', UserRoutes);     
-app.use('/api/v1/store', StoreRoutes);    
 app.use('/api/v1/orders', OrderRoutes);   
 app.use('/api/v1/payment', PaymentRoutes); 
-app.use('/api/v1/items', ItemRoutes);    
-app.use('/api/v1/sellers', SellerRoutes); 
+app.use('/api/v1/items', ItemRoutes);     
 app.use('/api/v1/admin', AdminRoutes);    
 
 // Default route for health check or basic response

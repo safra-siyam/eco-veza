@@ -31,29 +31,29 @@ const AddSeller: React.FC<AddSellerProps> = ({ onSellerAdded }) => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/sellers/add', sellerData, {
+      const response = await axios.post('http://localhost:3000/api/v1/users/seller', sellerData, {
         withCredentials: true,
       });
 
-      if (response.status === 201) {
-        const newSeller = response.data.seller; // Get new seller details from response
+      if (response.status == 201) {
+        // const newSeller = response.data.user; // Get new seller details from response
 
         toast.success('Seller added successfully!');
 
-        // Display seller's password in a SweetAlert pop-up
-        if (newSeller.password) {
-          Swal.fire({
-            title: `Your password is: ${newSeller.password}`,
-            text: 'Please note this down as it is one-time.',
-            icon: 'info',
-            confirmButtonText: 'OK',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-          });
-        }
+        // // Display seller's password in a SweetAlert pop-up
+        // if (newSeller.password) {
+        //   Swal.fire({
+        //     title: `Your password is: ${newSeller.password}`,
+        //     text: 'Please note this down as it is one-time.',
+        //     icon: 'info',
+        //     confirmButtonText: 'OK',
+        //     allowOutsideClick: false,
+        //     allowEscapeKey: false,
+        //   });
+        // }
 
-        // Notify parent component (AdminSellers) about the new seller
-        onSellerAdded(newSeller);
+        // // Notify parent component (AdminSellers) about the new seller
+        // onSellerAdded(newSeller);
 
         // Clear form after successful submission
         setSellerData({
@@ -76,7 +76,7 @@ const AddSeller: React.FC<AddSellerProps> = ({ onSellerAdded }) => {
       <h2 className="text-2xl font-bold mb-4">Add New Seller</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-sm font-semibold mb-2">Name</label>
+          <label className="block text-sm font-semibold mb-2">Username</label>
           <input
             type="text"
             name="name"
