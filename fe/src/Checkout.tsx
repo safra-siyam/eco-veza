@@ -66,7 +66,8 @@ const Checkout: React.FC = () => {
         // Payment succeeded, show success message
 
         const resp = await axios.post('http://localhost:3000/api/v1/orders/createOrder', {
-          status: paymentResult.paymentIntent.status,
+          paymentid : paymentResult.paymentIntent.id,
+          status: "PAID",
           amount: paymentResult.paymentIntent.amount,
           items: cart
         },{

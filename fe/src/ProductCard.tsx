@@ -16,7 +16,7 @@ const ProductCard = ({ _id, productName, description, price, stock }: ItemProps)
     >
       {/* Product Image */}
       <img
-        src="https://via.placeholder.com/400x300.png?text=Product+Image"
+        src="https://picsum.photos/200/300"
         alt={productName}
         className="w-full h-48 object-cover"
       />
