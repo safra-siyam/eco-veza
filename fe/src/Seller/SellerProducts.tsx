@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import ProductCard from './SellerProductCard';
 import { useEffect } from 'react';
 import { ItemProps, useItem } from '../context/ItemContext';
+import SellerProductCard from './SellerProductCard';
 
 const ProductList = () => {
 
@@ -28,13 +29,14 @@ const ProductList = () => {
                 {/* Products Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {items.map((product: ItemProps) => (
-                        <ProductCard 
+                        <SellerProductCard 
                           key={product._id} 
                           productName={product.productName} 
                           description={product.description} 
                           price={product.price} 
                           stock={product.stock} 
-                          _id={product._id} 
+                          _id={product._id}
+                          addToCartQuantity={0}
                         />
                     ))}
                 </div>

@@ -1,22 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { ItemProps } from "../context/ItemContext";
 
-const ProductCard = ({ _id, productName, description, price, stock }: ItemProps) => {
+const SellerProductCard = ({ _id, productName, description, price, stock,addToCartQuantity }: ItemProps) => {
   const navigate = useNavigate();
 
-  // Function to handle click and navigate to the product details page
-  const handleClick = () => {
-    navigate(`/products/${_id}`);
-  };
 
   return (
     <div
-      onClick={handleClick}
       className="bg-[#F5F5DC] rounded-lg shadow-md overflow-hidden max-w-sm cursor-pointer border-2 border-transparent hover:border-[#228B22] transition-all duration-300"
     >
       {/* Product Image */}
       <img
-        src="https://via.placeholder.com/400x300.png?text=Product+Image"
+        src="https://picsum.photos/200/300?random=1"
         alt={productName}
         className="w-full h-48 object-cover"
       />
@@ -44,4 +39,4 @@ const ProductCard = ({ _id, productName, description, price, stock }: ItemProps)
   );
 };
 
-export default ProductCard;
+export default SellerProductCard;

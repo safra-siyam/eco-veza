@@ -67,6 +67,58 @@ export const createOrder = async (req: Request, res: Response) => {
     }
 };
 
+export const getMyOrders = async (req: Request, res: Response) => {
+    try {
+
+         // Get Buyer
+         const token = req.cookies.jwt;
+         const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: Types.ObjectId };
+         const user = await User.findById(decoded.id).select('-password');
+         if (!user) {
+             return res.status(401).json({ message: "Invalid User" });
+         }
+
+        console.log("Fetching . . .")
+        const orders = await Order.find();
+        
+        var data:Object[] = [];
+        orders.forEach((order)=>{
+            const formattedDate = new Date(String(order.OrderDate)).toLocaleString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true
+              });
+            var OrderDate = formattedDate;
+            var BuyerId = order.BuyerID;
+            var status = order.status;
+            order.items.forEach((item)=>{
+                if(item.sellerId==user.id){
+                    data.push(
+                        {
+                            "BuyerId":BuyerId,
+                            "status":status,
+                            "OrderDate":OrderDate,
+                            "productName":item.productName,
+                            "price":item.price,
+                            "addToCartQuantity":item.addToCartQuantity
+                        }
+                    )
+                }
+            })
+
+        })
+
+        res.set('Cache-Control', 'no-store');
+        
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching orders", error });
+    }
+};
 
 
 

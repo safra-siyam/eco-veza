@@ -4,7 +4,7 @@ import { authMiddleware } from "../middleware/authMiddleware";
 
 const router = Router();
 
-router.get('/', authMiddleware(['Buyer']), getAllItems);
+router.get('/', authMiddleware(['Buyer','Seller']), getAllItems);
 router.get('/get/:id', authMiddleware(['Buyer','Seller']), getItemById);
 router.post('/addItem', authMiddleware(['Seller']) ,addItem);
 router.get('/:sellerId', authMiddleware(['Seller']), getItemBySellerId);
