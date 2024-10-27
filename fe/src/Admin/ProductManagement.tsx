@@ -1,19 +1,33 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 interface Product {
     id: string;
-    name: string;
+    productName: string;
     price: number;
     stock: number;
+    description:string;
 }
 
 const ProductManagement: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
 
     const fetchProducts = async () => {
-        const response = await fetch('/api/v1/admin/products');
-        const data = await response.json();
-        setProducts(data);
+        try {
+            var res= await axios.get('http://localhost:3000/api/v1/admin/items',{
+                withCredentials: true,
+              });
+            if(res.status==200){
+                const data = await res.data.item;
+                console.log(data)
+                setProducts(data)
+            }else{
+                throw new Error("Failed Fetching")
+            }
+            
+        } catch (error) {
+            console.error('Error fetching sellers:', error);
+        }
     };
 
     const deleteProduct = async (productId: string) => {
@@ -84,16 +98,17 @@ const ProductManagement: React.FC = () => {
                         <th style={thStyle}>Name</th>
                         <th style={thStyle}>Price</th>
                         <th style={thStyle}>Stock</th>
-                        <th style={thStyle}>Action</th>
+                        <th style={thStyle}>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     {products.map(product => (
                         <tr key={product.id}>
-                            <td style={tdStyle}>{product.name}</td>
+                            <td style={tdStyle}>{product.productName}</td>
                             <td style={tdStyle}>${product.price.toFixed(2)}</td>
                             <td style={tdStyle}>{product.stock}</td>
-                            <td style={tdStyle}>
+                            <td style={tdStyle}>{product.description}</td>
+                            {/* <td style={tdStyle}>
                                 <button
                                     style={buttonStyle}
                                     onMouseOver={(e) => e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor}
@@ -102,7 +117,7 @@ const ProductManagement: React.FC = () => {
                                 >
                                     Delete
                                 </button>
-                            </td>
+                            </td> */}
                         </tr>
                     ))}
                 </tbody>

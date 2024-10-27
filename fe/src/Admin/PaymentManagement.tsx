@@ -1,19 +1,52 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 interface Payment {
-    id: string;
-    orderId: string;
+    paymentid: string;
+    BuyerID: string;
     amount: number;
     status: string;
+    OrderDate : string;
 }
 
 const PaymentManagement: React.FC = () => {
     const [payments, setPayments] = useState<Payment[]>([]);
 
     const fetchPayments = async () => {
-        const response = await fetch('/api/v1/admin/payments');
-        const data = await response.json();
-        setPayments(data);
+        try {
+            var res= await axios.get('http://localhost:3000/api/v1/admin/orders',{
+                withCredentials: true,
+              });
+            if(res.status==200){
+                const data = await res.data;
+                console.log(data)
+                var payments:Payment[]=[];
+                data.forEach((element: { paymentid: any; BuyerID: any;  amount: any; status: any; OrderDate: any; }) => {
+                    const formattedDate = new Date(element.OrderDate).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        hour12: true
+                    });
+                    payments.push({
+                        "paymentid": element.paymentid,
+                        "BuyerID": element.BuyerID,
+                        "amount": element.amount,
+                        "status": element.status,
+                        "OrderDate" : formattedDate,
+                    })
+                });
+                setPayments(payments)
+            }else{
+                throw new Error("Failed Fetching")
+            }
+            
+        } catch (error) {
+            console.error('Error fetching sellers:', error);
+        }
     };
 
     useEffect(() => {
@@ -22,9 +55,9 @@ const PaymentManagement: React.FC = () => {
 
     // Inline styles
     const containerStyle = {
-        maxWidth: '800px',
+        maxWidth: '1800px',
         margin: '0 auto',
-        padding: '20px',
+        padding: '2px',
         borderRadius: '8px',
         boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
         backgroundColor: '#f9f9f9',
@@ -68,14 +101,19 @@ const PaymentManagement: React.FC = () => {
                     <tr>
                         <th style={thStyle}>Order ID</th>
                         <th style={thStyle}>Amount</th>
+                        <th style={thStyle}>BuyerId</th>
+                        <th style={thStyle}>Item Count</th>
+                        <th style={thStyle}>Order Date</th>
                         <th style={thStyle}>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {payments.map(payment => (
-                        <tr key={payment.id}>
-                            <td style={tdStyle}>{payment.orderId}</td>
+                        <tr key={payment.paymentid}>
+                            <td style={tdStyle}>{payment.paymentid}</td>
                             <td style={tdStyle}>${payment.amount.toFixed(2)}</td>
+                            <td style={tdStyle}>{payment.BuyerID}</td>
+                            <td style={tdStyle}>{payment.OrderDate}</td>
                             <td style={tdStyle}>
                                 <span style={statusStyle(payment.status)}>{payment.status}</span>
                             </td>

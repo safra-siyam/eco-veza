@@ -36,7 +36,7 @@ const AdminDashboard: React.FC = () => {
                     </li>
                     <li>
                         <Link 
-                            to="/admin/orders"
+                            to="/paymentmanagement"
                             className="block text-lg font-semibold text-[#228B22] bg-white p-3 rounded-md hover:bg-[#228B22] hover:text-[#F5F5DC] transition-all"
                         >
                             Manage Orders
@@ -44,50 +44,10 @@ const AdminDashboard: React.FC = () => {
                     </li>
                     <li>
                         <Link 
-                            to="paymentmanagement"
+                            to="/usermanagement"
                             className="block text-lg font-semibold text-[#228B22] bg-white p-3 rounded-md hover:bg-[#228B22] hover:text-[#F5F5DC] transition-all"
                         >
-                            Manage Payments
-                        </Link>
-                    </li>
-                    <li>
-                        <Link 
-                            to="/admin/categories"
-                            className="block text-lg font-semibold text-[#228B22] bg-white p-3 rounded-md hover:bg-[#228B22] hover:text-[#F5F5DC] transition-all"
-                        >
-                            Manage Categories
-                        </Link>
-                    </li>
-                    <li>
-                        <Link 
-                            to="/admin/promotions"
-                            className="block text-lg font-semibold text-[#228B22] bg-white p-3 rounded-md hover:bg-[#228B22] hover:text-[#F5F5DC] transition-all"
-                        >
-                            Manage Promotions
-                        </Link>
-                    </li>
-                    <li>
-                        <Link 
-                            to="/admin/content"
-                            className="block text-lg font-semibold text-[#228B22] bg-white p-3 rounded-md hover:bg-[#228B22] hover:text-[#F5F5DC] transition-all"
-                        >
-                            Manage Content
-                        </Link>
-                    </li>
-                    <li>
-                        <Link 
-                            to="/admin/reports"
-                            className="block text-lg font-semibold text-[#228B22] bg-white p-3 rounded-md hover:bg-[#228B22] hover:text-[#F5F5DC] transition-all"
-                        >
-                            View Reports
-                        </Link>
-                    </li>
-                    <li>
-                        <Link 
-                            to="/admin/settings"
-                            className="block text-lg font-semibold text-[#228B22] bg-white p-3 rounded-md hover:bg-[#228B22] hover:text-[#F5F5DC] transition-all"
-                        >
-                            Site Settings
+                            Manage Buyers
                         </Link>
                     </li>
                 </ul>

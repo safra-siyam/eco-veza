@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import AddSeller from './AddSeller'; 
+import axios from 'axios';
 
 interface Seller {
-    _id: string;
-    name: string;
+    username: string;
     email: string;
-    storeName: string;
+    storeId: string;
+    phone: string;
 }
 
 const AdminSellers: React.FC = () => {
@@ -15,24 +15,19 @@ const AdminSellers: React.FC = () => {
 
     const fetchSellers = async () => {
         try {
-            const response = await fetch('/api/v1/admin/sellers');
-            const data = await response.json();
-            setSellers(data);
+            var res= await axios.get('http://localhost:3000/api/v1/admin/sellers',{
+                withCredentials: true,
+              });
+            if(res.status==200){
+                const data = await res.data;
+                console.log(data)
+                setSellers(data)
+            }else{
+                throw new Error("Failed Fetching")
+            }
+            
         } catch (error) {
             console.error('Error fetching sellers:', error);
-        }
-    };
-
-    const removeSeller = async (sellerId: string) => {
-        if (window.confirm('Are you sure you want to remove this seller?')) {
-            try {
-                await fetch(`/api/v1/admin/sellers/${sellerId}`, {
-                    method: 'DELETE',
-                });
-                setSellers(sellers.filter(seller => seller._id !== sellerId));
-            } catch (error) {
-                console.error('Error removing seller:', error);
-            }
         }
     };
 
@@ -105,9 +100,9 @@ const AdminSellers: React.FC = () => {
         <div style={styles.container}>
             <h1 style={styles.header}>
                 Registered Sellers
-                <button style={styles.addButton} onClick={() => setIsAddingSeller(true)}>
+                {/* <button style={styles.addButton} onClick={() => setIsAddingSeller(true)}>
                     Add Seller
-                </button>
+                </button> */}
             </h1>
             
             {/* Conditionally render AddSeller form */}
@@ -119,21 +114,17 @@ const AdminSellers: React.FC = () => {
                         <th style={styles.th}>Name</th>
                         <th style={styles.th}>Email</th>
                         <th style={styles.th}>Store Name</th>
-                        <th style={styles.th}>Action</th>
+                        <th style={styles.th}>Phone</th>
                     </tr>
                 </thead>
                 <tbody>
                     {sellers.length > 0 ? (
                         sellers.map((seller) => (
-                            <tr key={seller._id}>
-                                <td style={styles.td}>{seller.name}</td>
+                            <tr key={seller.username}>
+                                <td style={styles.td}>{seller.username}</td>
                                 <td style={styles.td}>{seller.email}</td>
-                                <td style={styles.td}>{seller.storeName}</td>
-                                <td style={styles.td}>
-                                    <button style={styles.button} onClick={() => removeSeller(seller._id)}>
-                                        Remove
-                                    </button>
-                                </td>
+                                <td style={styles.td}>{seller.storeId}</td>
+                                <td style={styles.td}>{seller.phone}</td>
                             </tr>
                         ))
                     ) : (

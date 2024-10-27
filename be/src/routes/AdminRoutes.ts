@@ -1,14 +1,13 @@
-import express from 'express';
+import express, { Router } from 'express';
+import { authMiddleware } from '../middleware/authMiddleware';
+import { getBuyers, getOrders, getSellers } from '../controllers/SellerController';
+import { getAllItems } from '../controllers/ProductController';
 
-const router = express.Router();
+const router = Router();
 
-// // Route to add a seller
-// router.post('/sellers', addSeller);
-
-// // Route to get all sellers
-// router.get('/sellers', getSellers);
-
-// // Route to delete a seller by ID
-// router.delete('/sellers/:id', deleteSeller);
-
+// Route to get all sellers
+router.get('/sellers',authMiddleware(['Admin']), getSellers);
+router.get('/items',authMiddleware(['Admin']), getAllItems);
+router.get('/buyers',authMiddleware(['Admin']), getBuyers);
+router.get('/orders',authMiddleware(['Admin']), getOrders);
 export default router;

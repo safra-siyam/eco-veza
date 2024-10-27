@@ -53,7 +53,7 @@ export const createOrder = async (req: Request, res: Response) => {
             if(!itemInDB){
                 throw new Error("Item Mismatches Found")
             }else{
-                itemInDB.stock = remaining;
+                itemInDB.stock = remaining<0?0:remaining;
                 itemInDB.save();
             }
         })

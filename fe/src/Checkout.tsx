@@ -11,7 +11,7 @@ const Checkout: React.FC = () => {
   const stripe = useStripe();
   const elements = useElements();
   const location = useLocation();
-  const {cart} = location.state || { cart: [] };
+  var {cart} = location.state || { cart: [] };
 
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -78,6 +78,7 @@ const Checkout: React.FC = () => {
           toast.error("Purchasing Failed")
         }else{
           setPaymentSuccess(true);
+          cart = [];
         }
 
         

@@ -39,6 +39,13 @@ const Header = () => {
           <Link to="/contact" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
             Contact Us
           </Link>
+          {isAuthenticated && Cookies.get("userType") == "Admin" &&  (
+            <>
+              <Link to="/admindashboard" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
+                Dashboard
+              </Link>
+            </>
+          )}
           {isAuthenticated && Cookies.get("userType") == "Buyer" &&  (
             <>
               <Link to="/cart" className="text-[#228B22] hover:text-[#D2B48C] transition duration-300 py-2 px-4 rounded">
