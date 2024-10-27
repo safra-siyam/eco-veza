@@ -9,7 +9,7 @@ export const addSeller = async (req: Request, res: Response) => {
         // Function to generate a random 7-character password
         const generatePassword = (length: number) => {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let password = '';
+            let password = ''; 
             for (let i = 0; i < length; i++) {
                 password += chars.charAt(Math.floor(Math.random() * chars.length));
             }
