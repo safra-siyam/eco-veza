@@ -15,15 +15,15 @@ const SellerDashboard = () => {
             <Link to="/sellerproducts" className="block py-2 px-4 rounded hover:bg-[#1e7b1e]">
               My Products
             </Link>
-            <Link to="/dashboard/add-product" className="block py-2 px-4 rounded hover:bg-[#1e7b1e]">
+            <Link to="/add-item" className="block py-2 px-4 rounded hover:bg-[#1e7b1e]">
               Add Product
             </Link>
-            <Link to="/dashboard/orders" className="block py-2 px-4 rounded hover:bg-[#1e7b1e]">
+            <Link to="orders" className="block py-2 px-4 rounded hover:bg-[#1e7b1e]">
               Orders
             </Link>
-            <Link to="/dashboard/settings" className="block py-2 px-4 rounded hover:bg-[#1e7b1e]">
+            {/* <Link to="settings" className="block py-2 px-4 rounded hover:bg-[#1e7b1e]">
               Settings
-            </Link>
+            </Link> */}
           </nav>
         </aside>
 
