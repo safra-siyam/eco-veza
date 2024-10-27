@@ -9,6 +9,7 @@ export interface ItemProps {
     price: string
     productName: string
     stock: string
+    addToCartQuantity: number;
 };
 
 interface ItemContextProps {

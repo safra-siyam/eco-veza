@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 export interface ItemProps {
   _id: string;
   description: string;
-  price: number;
+  price: string;
   productName: string;
   stock: string;
   addToCartQuantity: number;

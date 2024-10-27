@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { createOrder, updateOrder, getOrderById, deleteOrder, addProductToOrder } from "../controllers/OrderController";
+import { authMiddleware } from "../middleware/authMiddleware";
 
 const router = Router();
 
 // Route to create a new order
-router.post('/createOrder', createOrder);
+router.post('/createOrder',authMiddleware(['Buyer']), createOrder);
 
 // Route to update an existing order by OrderID
 router.put('/updateOrder/:OrderID', updateOrder);

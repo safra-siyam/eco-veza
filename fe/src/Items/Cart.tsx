@@ -8,7 +8,7 @@ const CartDetails = () => {
   // Function to calculate the total price
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => {
-      const currentTotal = item.price * item.addToCartQuantity;
+      const currentTotal = Number(item.price) * item.addToCartQuantity;
       return total + currentTotal;
     }, 0);
   };
@@ -16,7 +16,7 @@ const CartDetails = () => {
   // Handle checkout button click
   const handleCheckout = () => {
     console.log('Checkout clicked');
-    navigate('/checkout');
+    navigate('/checkout', { state: { cart } });
   };
 
   if (!cart.length) {
@@ -36,7 +36,7 @@ const CartDetails = () => {
                 <h3 className="text-xl font-semibold text-green-800">{item.productName}</h3>
                 <p className="text-green-600">Quantity: {item.addToCartQuantity}</p>
               </div>
-              <p className="text-lg font-semibold text-green-700">${(item.price * item.addToCartQuantity).toFixed(2)}</p>
+              <p className="text-lg font-semibold text-green-700">${(Number(item.price) * item.addToCartQuantity).toFixed(2)}</p>
             </div>
           );
         })}

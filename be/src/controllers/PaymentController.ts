@@ -13,9 +13,9 @@ export const createPayment = async (req: Request, res: Response) => {
         amount: amount * 100,
         currency: 'usd',
       });
-  
+      console.log(paymentIntent)
       res.json({
-        clientSecret: paymentIntent.client_secret, // Send this to the frontend
+        data: paymentIntent,
       });
     } catch (error) {
       res.status(500).json({ message: "Payment failed" });

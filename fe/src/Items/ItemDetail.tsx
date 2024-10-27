@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useItem } from '../context/ItemContext';
 import { useCart } from '../context/CartContext';
+import { toast } from 'react-toastify';
 
 const ItemDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,6 +17,10 @@ const ItemDetail = () => {
 
   // Function to handle increment
   const incrementQuantity = () => {
+    if(quantity+1>Number(selectedItem?.stock)){
+      toast.error("Insufficient Quantity Left");
+      return;
+    }
     setQuantity((prev: number) => prev + 1);
   };
 
