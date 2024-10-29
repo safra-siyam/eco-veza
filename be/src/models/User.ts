@@ -21,7 +21,7 @@ const userSchema = new Schema<IUser>({
     address: { type: String, required: true },
     phone: { type: String, required: true },
     userType: { type: String, required: true, enum: ['Seller', 'Buyer', 'Admin'] },
-    storeId: { type: String, unique: true },
+    storeId: { type: String, unique: false },
 });
 
 
