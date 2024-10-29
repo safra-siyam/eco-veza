@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 interface AddSellerProps {
   onSellerAdded: (newSeller: any) => void; 
