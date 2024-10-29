@@ -84,10 +84,10 @@ const ProductManagement: React.FC = () => {
         transition: 'background-color 0.3s',
     };
 
-    const buttonHoverStyle = {
-        ...buttonStyle,
-        backgroundColor: '#d32f2f', // Darker red on hover
-    };
+    // const buttonHoverStyle = {
+    //     ...buttonStyle,
+    //     backgroundColor: '#d32f2f', // Darker red on hover
+    // };
 
     return (
         <div style={containerStyle}>

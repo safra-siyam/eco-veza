@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import ProductCard from './SellerProductCard';
+// import ProductCard from './SellerProductCard';
 import { useEffect } from 'react';
 import { ItemProps, useItem } from '../context/ItemContext';
 import SellerProductCard from './SellerProductCard';

@@ -102,7 +102,7 @@ const PaymentManagement: React.FC = () => {
                         <th style={thStyle}>Order ID</th>
                         <th style={thStyle}>Amount</th>
                         <th style={thStyle}>BuyerId</th>
-                        <th style={thStyle}>Item Count</th>
+                        {/* <th style={thStyle}>Item Count</th> */}
                         <th style={thStyle}>Order Date</th>
                         <th style={thStyle}>Status</th>
                     </tr>
