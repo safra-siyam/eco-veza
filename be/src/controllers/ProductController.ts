@@ -67,7 +67,8 @@ export const getItemById = async (req: Request, res: Response) => {
 }
 
 export const getItemBySellerId = async (req: Request, res: Response) => {
-    const { sellerId } = req.params;
+    const sellerId = (req as AuthRequest).user?._id;
+    console.log(sellerId);
 
     try {
         // Find all items by sellerId

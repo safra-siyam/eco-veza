@@ -80,7 +80,7 @@ const SellerDashboard = () => {
           {/* Overview Section */}
           <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="p-6 bg-[#F5F5DC] rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold text-[#228B22] mb-2">Total Products</h3>
+              <h3 className="text-xl font-semibold text-[#228B22] mb-2">Total Selling Products</h3>
               <p className="text-2xl font-bold text-[#228B22]">{totalProducts}</p>
             </div>
             <div className="p-6 bg-[#F5F5DC] rounded-lg shadow-lg">

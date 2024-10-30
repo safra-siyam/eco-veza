@@ -1,17 +1,36 @@
 import { Link } from 'react-router-dom';
 // import ProductCard from './SellerProductCard';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ItemProps, useItem } from '../context/ItemContext';
 import SellerProductCard from './SellerProductCard';
+import axios from 'axios';
 
 const ProductList = () => {
 
-  const { getAllItems, items } = useItem();
+    const [items, setItems] = useState([]);
+
+    const fetchProducts = async () => {
+        try {
+            var res= await axios.get('http://localhost:3000/api/v1/items/byseller',{
+                withCredentials: true,
+              });
+            if(res.status==200){
+                const data = await res.data.item;
+                console.log(data)
+                setItems(data)
+            }else{
+                throw new Error("Failed Fetching")
+            }
+            
+        } catch (error) {
+            console.error('Error fetching sellers:', error);
+        }
+    };
 
   useEffect(() => {
     // Fetch products
-    getAllItems();
-  }, [getAllItems]);
+    fetchProducts();
+  }, []);
     
     return (
         <div className="min-h-screen bg-[#F5F5DC]">
