@@ -23,7 +23,7 @@ const port = process.env.PORT || 3000;
 
 // Allow cross-origin requests (CORS)
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://eco-veza-fe-static.onrender.com',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
 }));
