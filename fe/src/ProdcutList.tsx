@@ -29,13 +29,13 @@ const ProductList = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {items.map((product: ItemProps) => (
                         <ProductCard 
-                          key={product._id} 
-                          productName={product.productName} 
-                          description={product.description} 
-                          price={product.price} 
-                          stock={product.stock} 
-                          _id={product._id} 
-                        />
+                        key={product._id}
+                        productName={product.productName}
+                        description={product.description}
+                        price={product.price}
+                        stock={product.stock}
+                        image={product.image}
+                        _id={product._id} addToCartQuantity={0}                        />
                     ))}
                 </div>
             </div>

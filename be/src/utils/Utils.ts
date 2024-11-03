@@ -33,6 +33,7 @@ export async function sendPasswordEmail(username: any, email: any, password: any
   
     console.log('Message sent: %s', info.messageId);
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    return nodemailer.getTestMessageUrl(info);
   }
 
 // Helper function to calculate TotalAmount

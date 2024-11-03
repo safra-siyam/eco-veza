@@ -6,6 +6,7 @@ interface ISaleItem extends Document {
     price: number;
     stock: number;
     sellerId: Types.ObjectId;
+    image: string;
 }
 
 const saleitemSchema = new Schema<ISaleItem>({
@@ -14,6 +15,7 @@ const saleitemSchema = new Schema<ISaleItem>({
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
     sellerId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    image: { type: String }
 });
 
 const Item = model<ISaleItem>('Item', saleitemSchema);

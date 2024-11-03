@@ -11,6 +11,7 @@ const AddItem: React.FC = () => {
     description: "",
     price: "",
     stock: "",
+    image: "", 
   });
 
   const [errors, setErrors] = useState({
@@ -18,6 +19,7 @@ const AddItem: React.FC = () => {
     description: "",
     price: "",
     stock: "",
+    image: "",
   });
 
   const handleChange = (
@@ -29,12 +31,27 @@ const AddItem: React.FC = () => {
     });
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          image: reader.result as string, // Store base64 string
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const validate = () => {
     const newErrors = {
       productName: "",
       description: "",
       price: "",
       stock: "",
+      image: "",
     };
     let isValid = true;
 
@@ -64,6 +81,11 @@ const AddItem: React.FC = () => {
       isValid = false;
     }
 
+    if (!formData.image) {
+      newErrors.image = "Image is required";
+      isValid = false;
+    }
+
     setErrors(newErrors);
     return isValid;
   };
@@ -72,20 +94,28 @@ const AddItem: React.FC = () => {
     e.preventDefault();
     if (validate()) {
       console.log("Form submitted with data:", formData);
-      await addItem({ ...formData, _id: generateUniqueId() });
+
+      await addItem({
+        ...formData, _id: generateUniqueId(),
+        addToCartQuantity: 0
+      });
+
       // Reset form data
       setFormData({
         productName: "",
         description: "",
         price: "",
         stock: "",
+        image: "",
       });
+
       // Clear errors
       setErrors({
         productName: "",
         description: "",
         price: "",
         stock: "",
+        image: "",
       });
     }
   };
@@ -169,7 +199,7 @@ const AddItem: React.FC = () => {
           </div>
 
           {/* Stock */}
-          <div className="mb-6">
+          <div className="mb-4">
             <label
               htmlFor="stock"
               className="block text-[#228B22] font-semibold mb-1"
@@ -189,6 +219,28 @@ const AddItem: React.FC = () => {
             />
             {errors.stock && (
               <p className="text-red-500 text-sm mt-1">{errors.stock}</p>
+            )}
+          </div>
+
+          {/* Image Upload */}
+          <div className="mb-6">
+            <label
+              htmlFor="image"
+              className="block text-[#228B22] font-semibold mb-1"
+            >
+              Image
+            </label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              onChange={handleImageChange}
+              className={`w-full p-3 border ${
+                errors.image ? "border-red-500" : "border-[#228B22]"
+              } rounded-md focus:outline-none`}
+            />
+            {errors.image && (
+              <p className="text-red-500 text-sm mt-1">{errors.image}</p>
             )}
           </div>
 

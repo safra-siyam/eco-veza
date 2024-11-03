@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ItemProps } from "../context/ItemContext";
 
-const SellerProductCard = ({ _id, productName, description, price, stock,addToCartQuantity }: ItemProps) => {
+const SellerProductCard = ({ _id, productName, description, price, stock,addToCartQuantity,image }: ItemProps) => {
   const navigate = useNavigate();
 
 
@@ -11,7 +11,7 @@ const SellerProductCard = ({ _id, productName, description, price, stock,addToCa
     >
       {/* Product Image */}
       <img
-        src="https://picsum.photos/200/300?random=1"
+        src={image}
         alt={productName}
         className="w-full h-48 object-cover"
       />

@@ -55,6 +55,7 @@ const ProductList = () => {
                           price={product.price} 
                           stock={product.stock} 
                           _id={product._id}
+                          image={product.image}
                           addToCartQuantity={0}
                         />
                     ))}

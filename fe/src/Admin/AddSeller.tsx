@@ -37,9 +37,12 @@ const AddSeller: React.FC<AddSellerProps> = ({ onSellerAdded }) => {
 
       if (response.status == 201) {
         // const newSeller = response.data.user; // Get new seller details from response
-
+        const { url } = response.data.user;
         toast.success('Seller added successfully!');
-
+        if (url) {
+          // Open the URL in a new tab
+          window.open(url, '_blank');
+        }
         // // Display seller's password in a SweetAlert pop-up
         // if (newSeller.password) {
         //   Swal.fire({
