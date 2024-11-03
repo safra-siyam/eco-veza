@@ -15,7 +15,7 @@ const AdminSellers: React.FC = () => {
 
     const fetchSellers = async () => {
         try {
-            var res= await axios.get('http://localhost:3000/api/v1/admin/sellers',{
+            var res= await axios.get(`${import.meta.env.VITE_BEURL}/api/v1/admin/sellers`,{
                 withCredentials: true,
               });
             if(res.status==200){

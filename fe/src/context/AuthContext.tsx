@@ -47,21 +47,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Check if the user is authenticated when the component mounts
     const checkAuth = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/v1/auth/check", {
+        const response = await axios.get(`${import.meta.env.VITE_BEURL}/api/v1/auth/check`, {
           withCredentials: true,
         });
         if (response.data.authenticated) {
           setIsAuthenticated(true);
           Cookies.set("userType", response.data.user.type)
-          if(response.data.user.type=="Buyer"){
-            navigate("/products");
-          }
-          if(response.data.user.type=="Admin"){
-            navigate("/admindashboard");
-          }
-          if(response.data.user.type=="Seller"){
-            navigate("/sellerdashboard");
-          }
         } else {
           setIsAuthenticated(false);
           Cookies.remove("userType")
@@ -80,7 +71,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/users/login",
+        `${import.meta.env.VITE_BEURL}/api/v1/users/login`,
         { email, password },
         { withCredentials: true }
       );
@@ -116,7 +107,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   ) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/users",
+        `${import.meta.env.VITE_BEURL}/api/v1/users`,
         { username, email, password, address, phone },
         { withCredentials: true }
       );
@@ -144,7 +135,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   ) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/sellers/add", 
+        `${import.meta.env.VITE_BEURL}/api/v1/sellers/add`, 
         { username, email, password, storeName, address, phone },
         { withCredentials: true }
       );
@@ -163,7 +154,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/users/logout",
+        `${import.meta.env.VITE_BEURL}/api/v1/users/logout`,
         {},
         { withCredentials: true }
       );

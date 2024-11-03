@@ -31,7 +31,7 @@ const AddSeller: React.FC<AddSellerProps> = ({ onSellerAdded }) => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/users/seller', sellerData, {
+      const response = await axios.post(`${import.meta.env.VITE_BEURL}/api/v1/users/seller`, sellerData, {
         withCredentials: true,
       });
 

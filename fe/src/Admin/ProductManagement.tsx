@@ -14,7 +14,7 @@ const ProductManagement: React.FC = () => {
 
     const fetchProducts = async () => {
         try {
-            var res= await axios.get('http://localhost:3000/api/v1/admin/items',{
+            var res= await axios.get(`${import.meta.env.VITE_BEURL}/api/v1/admin/items`,{
                 withCredentials: true,
               });
             if(res.status==200){

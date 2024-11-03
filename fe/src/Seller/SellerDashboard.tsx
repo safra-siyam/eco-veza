@@ -11,7 +11,7 @@ const SellerDashboard = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/orders/myOrders', {
+        const response = await axios.get(`${import.meta.env.VITE_BEURL}/api/v1/orders/myOrders`, {
           withCredentials: true,
         });
 
