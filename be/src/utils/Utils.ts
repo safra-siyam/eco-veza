@@ -1,5 +1,3 @@
-// utils/Utils.ts
-
 const nodemailer = require('nodemailer');
 
 export async function sendPasswordEmail(username: any, email: any, password: any) {
