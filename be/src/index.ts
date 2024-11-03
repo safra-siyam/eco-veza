@@ -23,7 +23,7 @@ const port = process.env.PORT || 3000;
 
 // Allow cross-origin requests (CORS)
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 }));

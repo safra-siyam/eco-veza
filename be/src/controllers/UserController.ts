@@ -44,10 +44,10 @@ export const register = async (req: Request, res: Response) => {
 
         // Generate JWT token
         const token = generateToken(user._id);
-        res.cookie('jwt', token, { httpOnly: false, maxAge: 3600000 });
+        res.cookie('jwt', token, { httpOnly: true, secure: true, sameSite: 'none', maxAge: 3600000 });
 
         // Send response
-        res.status(201).json({ message: 'User registered successfully', user: { username: user.username, email: user.email, type: user.userType }  });
+        res.status(201).json({ message: 'User registered successfully', user: { username: user.username, email: user.email, type: user.userType } });
     } catch (error) {
         console.error('Error during user registration:', error);
         res.status(400).json({ message: 'An error occurred during registration' });
@@ -155,7 +155,7 @@ export const createSeller = async (req: Request, res: Response) => {
         var url = await sendPasswordEmail(username, email, password);
 
         // Send response
-        res.status(201).json({ message: 'Seller registered successfully', user: { username: user.username, email: user.email, type: user.userType, url:url }  });
+        res.status(201).json({ message: 'Seller registered successfully', user: { username: user.username, email: user.email, type: user.userType, url: url } });
     } catch (error) {
         console.error('Error during seller registration:', error);
         res.status(400).json({ message: 'An error occurred during registration' });
