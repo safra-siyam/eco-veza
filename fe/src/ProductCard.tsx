@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ItemProps } from "./context/ItemContext";
 
-const ProductCard = ({ _id, productName, description, price, stock }: ItemProps) => {
+const ProductCard = ({ _id, productName, description, price, stock, image }: ItemProps) => {
   const navigate = useNavigate();
 
   // Function to handle click and navigate to the product details page
@@ -16,7 +16,7 @@ const ProductCard = ({ _id, productName, description, price, stock }: ItemProps)
     >
       {/* Product Image */}
       <img
-        src="https://picsum.photos/200/300"
+        src={image}
         alt={productName}
         className="w-full h-48 object-cover"
       />
