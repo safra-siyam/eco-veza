@@ -21,12 +21,17 @@ const app = express();
 // Server port
 const port = process.env.PORT || 3000;
 
-// Allow cross-origin requests (CORS)
-app.use(cors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+const corsOptions = {
+    origin: (origin: any, callback: (arg0: null, arg1: boolean) => void) => {
+        if (!origin) return callback(null, true); 
+        callback(null, origin);
+    },
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     credentials: true,
-}));
+};
+
+// Use CORS middleware with dynamic origin
+app.use(cors(corsOptions));
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
