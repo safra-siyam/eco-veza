@@ -5,12 +5,12 @@ import { Types } from 'mongoose';
 
 // Controller to create a new saleItem
 export const addItem = async (req: Request, res: Response) => {
-    const { productName, description, price, stock } = req.body;
+    const { productName, description, price, stock, image } = req.body;
     // Need to add seller ID
     const sellerId = (req as AuthRequest).user?._id;
     console.log(sellerId);
     // Check if all required fields are provided
-    if (!productName || !description || !price || !stock) {
+    if (!productName || !description || !price || !stock || !image ) {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
@@ -21,6 +21,7 @@ export const addItem = async (req: Request, res: Response) => {
             description, 
             price, 
             stock,
+            image,
             sellerId,
         });
 

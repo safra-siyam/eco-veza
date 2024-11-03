@@ -28,9 +28,8 @@ app.use(cors({
     credentials: true,  
 }));
 
-// Middleware for parsing JSON and URL-encoded data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 // Middleware for cookie parsing
 app.use(cookieParser());
