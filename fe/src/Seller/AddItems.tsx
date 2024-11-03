@@ -91,7 +91,7 @@ const AddItem: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (validate()) {
       console.log("Form submitted with data:", formData);
 

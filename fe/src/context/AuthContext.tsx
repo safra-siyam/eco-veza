@@ -53,6 +53,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (response.data.authenticated) {
           setIsAuthenticated(true);
           Cookies.set("userType", response.data.user.type)
+          if(response.data.user.type=="Buyer"){
+            navigate("/products");
+          }
+          if(response.data.user.type=="Admin"){
+            navigate("/admindashboard");
+          }
+          if(response.data.user.type=="Seller"){
+            navigate("/sellerdashboard");
+          }
         } else {
           setIsAuthenticated(false);
           Cookies.remove("userType")

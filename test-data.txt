@@ -1,0 +1,11 @@
+Admin
+======
+Username: admin
+Email: admin@mailinator.com
+Password: admin123
+
+Seller
+======
+Username: Bradley Mcbride
+Email: seller-1@mailinator.com
+Password: rXFf0RL

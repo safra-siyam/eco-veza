@@ -10,7 +10,7 @@ import OrderRoutes from './routes/OrderRoutes';
 import PaymentRoutes from './routes/PaymentRoutes';
 import ItemRoutes from './routes/ItemRoutes';
 import AuthRoutes from './routes/AuthRoutes';
-import AdminRoutes from './routes/AdminRoutes'; 
+import AdminRoutes from './routes/AdminRoutes';
 
 // Load environment variables
 dotenv.config();
@@ -23,9 +23,9 @@ const port = process.env.PORT || 3000;
 
 // Allow cross-origin requests (CORS)
 app.use(cors({
-    origin: 'http://localhost:5173',  
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',  
-    credentials: true,  
+    origin: 'http://localhost:5173',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
 }));
 
 app.use(express.json({ limit: '10mb' }));
@@ -45,20 +45,19 @@ app.use((req, res, next) => {
 });
 
 // API routes
-app.use('/api/v1/auth', AuthRoutes);     
-app.use('/api/v1/users', UserRoutes);     
-app.use('/api/v1/orders', OrderRoutes);   
-app.use('/api/v1/payment', PaymentRoutes); 
-app.use('/api/v1/items', ItemRoutes);     
-app.use('/api/v1/admin', AdminRoutes);    
+app.use('/api/v1/auth', AuthRoutes);
+app.use('/api/v1/users', UserRoutes);
+app.use('/api/v1/orders', OrderRoutes);
+app.use('/api/v1/payment', PaymentRoutes);
+app.use('/api/v1/items', ItemRoutes);
+app.use('/api/v1/admin', AdminRoutes);
 
 // Default route for health check or basic response
 app.get('/', (req, res) => {
     res.send('Welcome to the Eco Veza API');
 });
 
-// MongoDB connection and server start
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/eco-veza', {
+mongoose.connect(process.env.DB_CLUSTER || '', {
 })
     .then(() => {
         // Start server if MongoDB connection is successful
