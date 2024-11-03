@@ -55,7 +55,6 @@ export const register = async (req: Request, res: Response) => {
 };
 
 // Login user
-// Login user
 export const login = async (req: Request, res: Response) => {
     console.log('Login body:', req.body);
 
@@ -96,9 +95,11 @@ export const logout = async (req: Request, res: Response) => {
     return res.status(200).json({ message: 'Successfully logged out' });
 };
 
+// Get user profile
 export const createSeller = async (req: Request, res: Response) => {
 
 
+    //here we are creating a new seller
     console.log('Create Seller body:', req.body);
 
     const { name, email, phone, storeName, address, userType = "Seller" } = req.body;

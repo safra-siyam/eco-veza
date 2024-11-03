@@ -1,4 +1,3 @@
-// src/AboutUs.tsx
 import React from "react";
 import { FaLeaf, FaSeedling, FaHandsHelping, FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
