@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useEffect(() => { 
     // Check if the user is authenticated when the component mounts
     const checkAuth = async () => {
       try {
