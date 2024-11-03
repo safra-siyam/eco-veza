@@ -151,10 +151,10 @@ export const createSeller = async (req: Request, res: Response) => {
         });
         await user.save();
 
-        sendPasswordEmail(username, email, password);
+        var url = await sendPasswordEmail(username, email, password);
 
         // Send response
-        res.status(201).json({ message: 'Seller registered successfully', user: { username: user.username, email: user.email, type: user.userType }  });
+        res.status(201).json({ message: 'Seller registered successfully', user: { username: user.username, email: user.email, type: user.userType, url:url }  });
     } catch (error) {
         console.error('Error during seller registration:', error);
         res.status(400).json({ message: 'An error occurred during registration' });
