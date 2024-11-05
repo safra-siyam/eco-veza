@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import img1URL from './assets/latest1.jpeg';
 import img2URL from './assets/latest2.jpeg';
 import img3URL from './assets/latest3.jpeg';
+import img4URL from './assets/twig.jpeg';
 
 const Home: React.FC = () => {
   return (
@@ -29,7 +30,7 @@ const Home: React.FC = () => {
         {/* Image Section */}
         <section className="relative">
           <img
-            src="../src/assets/twig.jpeg"
+            src={`${img4URL}`}
             alt="Nature Image"
             className="w-full max-w-4xl mx-auto shadow-lg rounded-lg transition-transform duration-500 ease-in-out hover:scale-105"
           />
