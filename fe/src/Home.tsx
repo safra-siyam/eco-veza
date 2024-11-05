@@ -1,6 +1,9 @@
 // src/Home.tsx
 import React from "react";
 import { Link } from "react-router-dom";
+import img1URL from './assets/latest1.jpeg';
+import img2URL from './assets/latest2.jpeg';
+import img3URL from './assets/latest3.jpeg';
 
 const Home: React.FC = () => {
   return (
@@ -41,10 +44,10 @@ const Home: React.FC = () => {
             Explore our newest additions and find something special to support a greener lifestyle.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto max-w-5xl">
-            {['latest1.jpeg', 'latest2.jpeg', 'latest3.jpeg'].map((img, index) => (
+            {[img1URL, img2URL, img3URL].map((img, index) => (
               <div key={index} className="bg-white shadow-md rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
                 <img
-                  src={`../src/assets/${img}`}
+                  src={`${img}`}
                   alt={`Latest Arrival ${index + 1}`}
                   className="w-full h-80 object-cover"
                 />
