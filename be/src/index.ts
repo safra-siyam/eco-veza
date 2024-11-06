@@ -57,6 +57,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to the Eco Veza API');
 });
 
+//here DB_CLUSTER is the connection string of the MongoDB cluster
 mongoose.connect(process.env.DB_CLUSTER || '', {
 })
     .then(() => {

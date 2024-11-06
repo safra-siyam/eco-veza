@@ -81,6 +81,7 @@ export const getMyOrders = async (req: Request, res: Response) => {
         console.log("Fetching . . .")
         const orders = await Order.find();
         
+        //here we are filtering the orders based on the buyerId and then we are formatting the date and then we are sending the response because we need to send the response in the format that is required by the frontend so that it can be easily displayed
         var data:Object[] = [];
         orders.forEach((order)=>{
             const formattedDate = new Date(String(order.OrderDate)).toLocaleString("en-US", {
