@@ -9,3 +9,13 @@ Seller
 Username: Bradley Mcbride
 Email: seller-1@mailinator.com
 Password: rXFf0RL
+
+
+Mongo DB : https://cloud.mongodb.com/v2/67275222077cc50840b3ec27#/metrics/replicaSet/67275322ac6f8c7efa4cdb71/explorer/test/users/find
+Render BE :  https://dashboard.render.com/web/srv-csjltki3esus7386hi80/events
+
+Card 
+4242 4242 4242 4242
+12/34
+123
+80000

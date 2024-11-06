@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 // import Swal from 'sweetalert2';
 
 interface AddSellerProps {
@@ -31,7 +32,7 @@ const AddSeller: React.FC<AddSellerProps> = ({ onSellerAdded }) => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/users/seller', sellerData, {
+      const response = await axios.post(`${import.meta.env.VITE_BEURL}/api/v1/users/seller`, sellerData, {
         withCredentials: true,
       });
 
@@ -39,21 +40,21 @@ const AddSeller: React.FC<AddSellerProps> = ({ onSellerAdded }) => {
         // const newSeller = response.data.user; // Get new seller details from response
         const { url } = response.data.user;
         toast.success('Seller added successfully!');
-        if (url) {
-          // Open the URL in a new tab
-          window.open(url, '_blank');
-        }
-        // // Display seller's password in a SweetAlert pop-up
-        // if (newSeller.password) {
-        //   Swal.fire({
-        //     title: `Your password is: ${newSeller.password}`,
-        //     text: 'Please note this down as it is one-time.',
-        //     icon: 'info',
-        //     confirmButtonText: 'OK',
-        //     allowOutsideClick: false,
-        //     allowEscapeKey: false,
-        //   });
+        // if (url) {
+        //   // Open the URL in a new tab
+        //   window.open(url, '_blank');
         // }
+        // Display seller's password in a SweetAlert pop-up
+        if (url) {
+          Swal.fire({
+            title: `Demo Link`,
+            text: `This link contains sample email seller will get. Link ${url}`,
+            icon: 'info',
+            confirmButtonText: 'OK',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+          });
+        }
 
         // // Notify parent component (AdminSellers) about the new seller
         // onSellerAdded(newSeller);

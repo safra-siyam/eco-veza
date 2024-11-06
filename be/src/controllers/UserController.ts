@@ -44,7 +44,7 @@ export const register = async (req: Request, res: Response) => {
 
         // Generate JWT token
         const token = generateToken(user._id);
-        res.cookie('jwt', token, { httpOnly: false, secure: true, sameSite: 'none', maxAge: 3600000 });
+        res.cookie('jwt', token, { httpOnly: true, secure: true, sameSite: 'none', maxAge: 3600000 });
 
         // Send response
         res.status(201).json({ message: 'User registered successfully', user: { username: user.username, email: user.email, type: user.userType } });
@@ -78,7 +78,7 @@ export const login = async (req: Request, res: Response) => {
 
         // Generate JWT token
         const token = generateToken(user._id);
-        res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
+        res.cookie('jwt', token, { httpOnly: true, secure: true, sameSite: 'none', maxAge: 3600000 });
 
         // Send response
         res.status(200).json({ message: 'Login successful', user: { username: user.username, email: user.email, type: user.userType } });

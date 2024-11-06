@@ -19,7 +19,7 @@ const SellerSignIn = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/sellers/signin', credentials, {
+      const response = await axios.post(`${import.meta.env.VITE_BEURL}/api/v1/sellers/signin`, credentials, {
         withCredentials: true,
       });
 

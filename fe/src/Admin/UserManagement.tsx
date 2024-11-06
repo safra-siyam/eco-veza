@@ -13,7 +13,7 @@ const UserManagement: React.FC = () => {
 
     const fetchSellers = async () => {
         try {
-            var res= await axios.get('http://localhost:3000/api/v1/admin/buyers',{
+            var res= await axios.get(`${import.meta.env.VITE_BEURL}/api/v1/admin/buyers`,{
                 withCredentials: true,
               });
             if(res.status==200){

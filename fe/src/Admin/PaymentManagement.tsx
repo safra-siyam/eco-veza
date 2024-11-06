@@ -14,7 +14,7 @@ const PaymentManagement: React.FC = () => {
 
     const fetchPayments = async () => {
         try {
-            var res= await axios.get('http://localhost:3000/api/v1/admin/orders',{
+            var res= await axios.get(`${import.meta.env.VITE_BEURL}/api/v1/admin/orders`,{
                 withCredentials: true,
               });
             if(res.status==200){

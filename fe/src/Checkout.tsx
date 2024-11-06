@@ -35,7 +35,7 @@ const Checkout: React.FC = () => {
 
     try {
       // Create payment intent by sending a request to your backend
-      const { data } = await axios.post('http://localhost:3000/api/v1/payment/create-payment-intent', {
+      const { data } = await axios.post(`${import.meta.env.VITE_BEURL}/api/v1/payment/create-payment-intent`, {
         amount: calculateTotalPrice() * 100, // Convert total to cents
       },{
         withCredentials: true,
@@ -65,7 +65,7 @@ const Checkout: React.FC = () => {
       } else if (paymentResult.paymentIntent && paymentResult.paymentIntent.status === 'succeeded') {
         // Payment succeeded, show success message
 
-        const resp = await axios.post('http://localhost:3000/api/v1/orders/createOrder', {
+        const resp = await axios.post(`${import.meta.env.VITE_BEURL}/api/v1/orders/createOrder`, {
           paymentid : paymentResult.paymentIntent.id,
           status: "PAID",
           amount: paymentResult.paymentIntent.amount,

@@ -11,7 +11,7 @@ const ProductList = () => {
 
     const fetchProducts = async () => {
         try {
-            var res= await axios.get('http://localhost:3000/api/v1/items/byseller',{
+            var res= await axios.get(`${import.meta.env.VITE_BEURL}/api/v1/items/byseller`,{
                 withCredentials: true,
               });
             if(res.status==200){
