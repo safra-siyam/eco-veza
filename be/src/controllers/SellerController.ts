@@ -28,11 +28,17 @@ export const getBuyers = async (req: Request, res: Response) => {
 
 export const getOrders = async (req: Request, res: Response) => {
     try {
-        console.log("Fetching . . .")
-        const sellers = await Order.find();
+        console.log("Fetching . . .");
+        const orders = await Order.find();
+
+        // Adjust the amount directly
+        const modifiedOrders = orders.map(order => {
+            order.amount = order.amount / 100;
+            return order;
+        });
+
         res.set('Cache-Control', 'no-store');
-        
-        res.status(200).json(sellers);
+        res.status(200).json(modifiedOrders);
     } catch (error) {
         res.status(500).json({ message: "Error fetching orders", error });
     }
