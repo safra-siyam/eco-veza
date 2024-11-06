@@ -40,7 +40,7 @@ app.use((req, res, next) => {
     console.log(`Request Method: ${req.method}`);
     console.log(`Headers: ${JSON.stringify(req.headers)}`);
     console.log(`Params: ${JSON.stringify(req.params)}`);
-    console.log(`Body: ${JSON.stringify(req.body)}`);
+    // console.log(`Body: ${JSON.stringify(req.body)}`);
     next();
 });
 
