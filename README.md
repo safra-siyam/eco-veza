@@ -23,7 +23,7 @@ Additional Tools: Axios for API calls, Mongoose for MongoDB object modeling
 
 Installation
 1. Clone the Repository
-   git clone https://github.com/yourusername/eco-veza.git
+   git clone https://github.com/safra-siyam/eco-veza.git
    cd eco-veza
 
 2. Install Server Dependencies
